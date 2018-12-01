@@ -11,7 +11,7 @@ parseShift _           = Nothing
 
 changeList :: IO [Int]
 changeList = do
-  input <- readFile "./src/Day1/Part1.input"
+  input <- readFile "./src/Day1/input.txt"
   return $ mapMaybe parseShift $ lines input
 
 part1 :: IO ()
