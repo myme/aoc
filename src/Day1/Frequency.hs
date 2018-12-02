@@ -6,8 +6,7 @@ import Text.Read
 
 parseShift :: String -> Maybe Int
 parseShift ('+' : num) = readMaybe num
-parseShift ('-' : num) = negate <$> readMaybe num
-parseShift _           = Nothing
+parseShift num         = readMaybe num
 
 changeList :: IO [Int]
 changeList = do
