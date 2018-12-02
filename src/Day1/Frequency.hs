@@ -14,14 +14,19 @@ changeList = do
   input <- readFile "./src/Day1/input.txt"
   return $ mapMaybe parseShift $ lines input
 
-part1 :: IO ()
-part1 = do
-  ls <- sum <$> changeList
-  print ls
+part1 :: IO Int
+part1 = sum <$> changeList
 
-part2 :: IO ()
+part2 :: IO Int
 part2 = do
   freqs <- scanl (+) 0 . cycle <$> changeList
-  print $ go empty freqs
+  return $ go empty freqs
   where go set (f:fs) | f `member` set = f
                       | otherwise = go (f `insert` set) fs
+
+puzzle :: IO ()
+puzzle = do
+  putStr "Answer part 1: "
+  print =<< part1
+  putStr "Answer part 2: "
+  print =<< part2
