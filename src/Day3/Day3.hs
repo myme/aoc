@@ -47,13 +47,14 @@ mergeClaim (Fabric d v) (Claim _ idxs) = Fabric d v'
 puzzle :: IO ()
 puzzle = do
   claims <- parseClaims . lines <$> readFile "./src/Day3/input.txt"
+
   let (Fabric _ merged) = foldr (flip mergeClaim) empty claims
       part1 = show (V.length $ V.filter (> 1) merged)
+
   putStrLn $ "part1: " <> part1
 
   let indexed = V.filter ((== 1) . snd) $ V.indexed merged
       indexes = I.fromList $ V.toList $ V.map fst indexed
+      part2 = find (\(Claim _ idxs) -> idxs `I.isSubsetOf` indexes) claims
 
-  case find (\(Claim _ idxs) -> idxs `I.isSubsetOf` indexes) claims of
-    Nothing -> putStrLn "sorry, no matches"
-    Just (Claim id _) -> putStrLn $ "part2: " <> show id
+  putStrLn $ "part2: " <> maybe "sorry, no matches" (show . _id) part2
