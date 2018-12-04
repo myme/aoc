@@ -4,7 +4,6 @@
 module Day4.Day4 where
 
 import           Control.Applicative ((<|>))
-import           Data.Function (on)
 import qualified Data.IntMap.Strict as M
 import           Data.Ix (range)
 import           Data.List (groupBy, maximumBy, sort)
@@ -62,9 +61,6 @@ groupShifts = foldr (join . create) M.empty . sort
   where create (id, sleep, awake) = M.singleton id (vect (sleep, awake - 1))
         vect r = V.replicate 60 0 // map (, 1) (range r)
         join = M.unionWith $ V.zipWith (+)
-
-maxBy :: Ord b => (a -> b) -> [a] -> a
-maxBy = maximumBy . (compare `on`)
 
 puzzle :: IO ()
 puzzle = parseEvents <$> readLines "./src/Day4/input.txt" >>= \case
