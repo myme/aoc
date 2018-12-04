@@ -2,7 +2,7 @@ module Day2.Day2 where
 
 import qualified Data.IntSet as ISet
 import           Data.List (group, sort)
-import           Data.Maybe (catMaybes)
+import           Data.Maybe (catMaybes, listToMaybe)
 
 doublesAndTriples :: String -> (Int, Int)
 doublesAndTriples = (\x -> (has x 2, has x 3))
@@ -12,13 +12,10 @@ doublesAndTriples = (\x -> (has x 2, has x 3))
   . sort          -- sort characters together
   where has set x = fromEnum $ x `ISet.member` set
 
-input :: IO [String]
-input = lines <$> readFile "./src/Day2/input.txt"
-
-part1 :: IO Int
-part1 = do
-  (doubles, triples) <- unzip . map doublesAndTriples <$> input
-  return $ sum doubles * sum triples
+part1 :: [String] -> Int
+part1 input =
+  let (doubles, triples) = unzip . map doublesAndTriples $ input
+  in sum doubles * sum triples
 
 diffStrings :: String -> String -> [Maybe Char]
 diffStrings = zipWith $ \x y -> if x == y then Just x else Nothing
@@ -26,15 +23,13 @@ diffStrings = zipWith $ \x y -> if x == y then Just x else Nothing
 offByOne :: [Maybe Char] -> Bool
 offByOne = (== 1) . length . filter (== Nothing)
 
-part2 :: IO [String]
-part2 = do
-  ls <- input
-  let diffs = [diffStrings s1 s2 | s1 <- ls, s2 <- ls]
-  return $ take 1 $ map catMaybes $ filter offByOne diffs
+part2 :: [String] -> Maybe String
+part2 input =
+  let diffs = [diffStrings s1 s2 | s1 <- input, s2 <- input]
+  in listToMaybe $ map catMaybes $ filter offByOne diffs
 
 puzzle :: IO ()
 puzzle = do
-  putStr "Answer to part1: "
-  part1 >>= print
-  putStr "Answer to part 2: "
-  part2 >>= print
+  input <- lines <$> readFile "./src/Day2/input.txt"
+  putStrLn $ "part 1: " <> show (part1 input)
+  putStrLn $ "part 2: " <> maybe "No matches!" show (part2 input)

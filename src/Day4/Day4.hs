@@ -67,10 +67,12 @@ puzzle = parseEvents <$> readLines "./src/Day4/input.txt" >>= \case
     Nothing -> putStrLn "No parse"
     Just events -> do
       let sleepMap = groupShifts $ reduceEvents events
-          (guard, sleep) = maxBy (sum . snd) $ M.assocs sleepMap
+          sleepAssoc = M.assocs sleepMap
+
+      let (guard, sleep) = maxBy (sum . snd) sleepAssoc
           (minute, _) = maxBy snd $ zip [0 ..] $ V.toList sleep
       putStrLn $ "part 1: " <> show (guard * minute)
 
-      let (guard, sleep) = maxBy (maximum . snd) $ M.assocs sleepMap
+      let (guard, sleep) = maxBy (maximum . snd) sleepAssoc
           (minute, _) = maxBy snd $ zip [0 ..] $ V.toList sleep
       putStrLn $ "part 2: " <> show (guard * minute)
