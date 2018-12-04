@@ -3,7 +3,6 @@
 module Day3.Day3 where
 
 import           Control.Monad
-import           Data.Char (isDigit)
 import qualified Data.IntSet as I
 import           Data.Ix (index, range)
 import           Data.List (find)
@@ -11,6 +10,7 @@ import           Data.Vector (Vector, (++))
 import qualified Data.Vector as V
 import           Prelude hiding ((++))
 import           Text.ParserCombinators.ReadP
+import           Utils (parseInt)
 
 type Pos = (Int, Int) -- ^ (x, y)
 type Dim = (Int, Int) -- ^ (w, h)
@@ -20,9 +20,6 @@ data Claim = Claim {_id :: Int, _idxs :: [Pos] }
 empty :: Fabric
 empty = Fabric (w, h) $ V.replicate (w * h) 0
   where w = 1000; h = 1000
-
-parseInt :: ReadP Int
-parseInt = read <$> many1 (satisfy isDigit)
 
 parseClaim :: ReadP Claim
 parseClaim = do

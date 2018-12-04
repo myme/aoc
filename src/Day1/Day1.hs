@@ -1,4 +1,4 @@
-module Day1.Part1 where
+module Day1.Day1 where
 
 import Data.IntSet
 import Data.Maybe
