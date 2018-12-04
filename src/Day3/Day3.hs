@@ -3,11 +3,13 @@
 module Day3.Day3 where
 
 import           Control.Monad
+import           Control.Monad.ST
 import qualified Data.IntSet as I
 import           Data.Ix (index, range)
 import           Data.List (find)
 import           Data.Vector (Vector, (++))
 import qualified Data.Vector as V
+import qualified Data.Vector.Mutable as VM
 import           Prelude hiding ((++))
 import           Text.ParserCombinators.ReadP
 import           Utils (parseInt)
@@ -33,15 +35,17 @@ parseClaim = do
 parseClaims :: [String] -> [Claim]
 parseClaims = map fst . concatMap (readP_to_S parseClaim)
 
-mergeClaim :: Fabric -> Claim -> Fabric
-mergeClaim (Fabric d v) (Claim _ idxs) = Fabric d v'
-  where v' = V.accum (+) v (map ((, 1) . index ((0, 0), d)) idxs)
+applyClaims :: Fabric -> [Claim] -> Fabric
+applyClaims (Fabric dim vect) claims = Fabric dim vect'
+  where vect' = V.modify apply vect
+        apply v = forM_ claims $ \(Claim _ idxs) ->
+          forM_ idxs (VM.modify v (+ 1) . index ((0, 0), dim))
 
 puzzle :: IO ()
 puzzle = do
   claims <- parseClaims . lines <$> readFile "./src/Day3/input.txt"
 
-  let (Fabric dim merged) = foldr (flip mergeClaim) empty claims
+  let (Fabric dim merged) = applyClaims empty claims
       part1 = show (V.length $ V.filter (> 1) merged)
 
   putStrLn $ "part1: " <> part1
