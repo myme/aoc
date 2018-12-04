@@ -57,7 +57,7 @@ reduceEvents = go (Nothing, Nothing, [])
 type SleepMap = M.IntMap (V.Vector Int)
 
 groupShifts :: [(GuardId, Int, Int)] -> SleepMap
-groupShifts = foldr (join . create) M.empty . sort
+groupShifts = foldr (join . create) M.empty
   where create (id, sleep, awake) = M.singleton id (vect (sleep, awake - 1))
         vect r = V.replicate 60 0 // map (, 1) (range r)
         join = M.unionWith $ V.zipWith (+)
