@@ -1,11 +1,9 @@
-{-# LANGUAGE TupleSections #-}
-
 module Day3.Day3 where
 
 import           Control.Monad
 import           Control.Monad.ST
 import qualified Data.IntSet as I
-import           Data.Ix (index, range)
+import qualified Data.Ix as Ix
 import           Data.List (find)
 import           Data.Vector (Vector, (++))
 import qualified Data.Vector as V
@@ -23,6 +21,9 @@ empty :: Fabric
 empty = Fabric (w, h) $ V.replicate (w * h) 0
   where w = 1000; h = 1000
 
+index :: Dim -> Pos -> Int
+index dim = Ix.index ((0, 0), dim)
+
 parseClaim :: ReadP Claim
 parseClaim = do
   id <- char '#' >> parseInt
@@ -30,16 +31,15 @@ parseClaim = do
   y <- char ',' >> parseInt
   w <- string ": " >> parseInt
   h <- char 'x' >> parseInt <* eof
-  return $ Claim id (range ((x, y), (x + w - 1, y + h -1)))
+  return $ Claim id (Ix.range ((x, y), (x + w - 1, y + h -1)))
 
 parseClaims :: [String] -> [Claim]
 parseClaims = map fst . concatMap (readP_to_S parseClaim)
 
 applyClaims :: Fabric -> [Claim] -> Fabric
-applyClaims (Fabric dim vect) claims = Fabric dim vect'
-  where vect' = V.modify apply vect
-        apply v = forM_ claims $ \(Claim _ idxs) ->
-          forM_ idxs (VM.modify v (+ 1) . index ((0, 0), dim))
+applyClaims (Fabric dim vect) claims = Fabric dim (V.modify apply vect)
+  where apply v = forM_ claims $
+          \(Claim _ idxs) -> forM_ idxs (VM.modify v (+ 1) . index dim)
 
 puzzle :: IO ()
 puzzle = do
@@ -52,7 +52,7 @@ puzzle = do
 
   let indexed = V.filter ((== 1) . snd) $ V.indexed merged
       indexes = I.fromList $ V.toList $ V.map fst indexed
-      pred (Claim _ idxs) = I.fromList (map (index ((0, 0), dim)) idxs) `I.isSubsetOf` indexes
+      pred (Claim _ idxs) = I.fromList (map (index dim) idxs) `I.isSubsetOf` indexes
       part2 = find pred claims
 
   putStrLn $ "part2: " <> maybe "sorry, no matches" (show . _id) part2
