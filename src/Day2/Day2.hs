@@ -2,7 +2,7 @@ module Day2.Day2 where
 
 import qualified Data.IntSet as ISet
 import           Data.List (group, sort)
-import           Data.Maybe (catMaybes, listToMaybe)
+import           Data.Maybe (catMaybes, listToMaybe, fromMaybe)
 import           Utils
 
 doublesAndTriples :: String -> (Int, Int)
@@ -32,5 +32,5 @@ part2 input =
 puzzle :: IO ()
 puzzle = do
   input <- readLines "./src/Day2/input.txt"
-  putStrLn $ "part 1: " <> show (part1 input)
-  putStrLn $ "part 2: " <> maybe "No matches!" show (part2 input)
+  expect "part 1: " 5434 (part1 input)
+  expect "part 2: " "agimdjvlhedpsyoqfzuknpjwt" $ fromMaybe "No matches!" (part2 input)

@@ -71,8 +71,8 @@ puzzle = parseEvents <$> readLines "./src/Day4/input.txt" >>= \case
 
       let (guard, sleep) = maxBy (sum . snd) sleepAssoc
           (minute, _) = maxBy snd $ zip [0 ..] $ V.toList sleep
-      putStrLn $ "part 1: " <> show (guard * minute)
+      expect "part 1: " 84636 (guard * minute)
 
       let (guard, sleep) = maxBy (maximum . snd) sleepAssoc
           (minute, _) = maxBy snd $ zip [0 ..] $ V.toList sleep
-      putStrLn $ "part 2: " <> show (guard * minute)
+      expect "part 2: " 91679 (guard * minute)

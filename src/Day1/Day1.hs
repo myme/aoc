@@ -22,5 +22,5 @@ part2 = go empty . scanl (+) 0 . cycle
 puzzle :: IO ()
 puzzle = do
   list <- changeList
-  putStrLn $ "part 1: " <> show (sum list)
-  putStrLn $ "part 2: " <> show (part2 list)
+  expect "part 1: " 531 (sum list)
+  expect "part 2: " 76787 (part2 list)

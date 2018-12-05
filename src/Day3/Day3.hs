@@ -10,7 +10,7 @@ import qualified Data.Vector as V
 import qualified Data.Vector.Mutable as VM
 import           Prelude hiding ((++))
 import           Text.ParserCombinators.ReadP
-import           Utils (parseInt)
+import           Utils
 
 type Pos = (Int, Int) -- ^ (x, y)
 type Dim = (Int, Int) -- ^ (w, h)
@@ -46,13 +46,13 @@ puzzle = do
   claims <- parseClaims . lines <$> readFile "./src/Day3/input.txt"
 
   let (Fabric dim merged) = applyClaims empty claims
-      part1 = show (V.length $ V.filter (> 1) merged)
+      part1 = V.length $ V.filter (> 1) merged
 
-  putStrLn $ "part1: " <> part1
+  expect "part1: " 101469 part1
 
   let indexed = V.filter ((== 1) . snd) $ V.indexed merged
       indexes = I.fromList $ V.toList $ V.map fst indexed
       pred (Claim _ idxs) = I.fromList (map (index dim) idxs) `I.isSubsetOf` indexes
       part2 = find pred claims
 
-  putStrLn $ "part2: " <> maybe "sorry, no matches" (show . _id) part2
+  expect "part2: " 1067 $ maybe 0 _id part2
