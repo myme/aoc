@@ -4,15 +4,16 @@ import           Data.Char (isAlpha, isUpper, isLower, toLower)
 import qualified Data.Set as S
 import           Utils
 
-willReact :: Char -> Char -> Bool
-willReact a b = (isUpper a && isLower b && toLower a == b) ||
-                (isLower a && isUpper b && a == toLower b)
+(><) :: Char -> Char -> Bool
+(><) a b | isUpper a == isUpper b = False
+         | isUpper a = b >< a
+         | otherwise = a == toLower b
 
 react :: String -> String
 react = go ""
   where go prev "" = reverse prev
         go "" (n:next) = go [n] next
-        go (p:prev) (n:next) | willReact p n = go prev next
+        go (p:prev) (n:next) | p >< n = go prev next
                              | otherwise = go (n:p:prev) next
 
 puzzle :: IO ()
