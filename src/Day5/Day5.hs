@@ -1,17 +1,13 @@
 module Day5.Day5 where
 
-import           Data.Char (isAlpha, isUpper, isLower, toLower)
+import           Data.Char (isAlpha, isLower, toLower)
 import qualified Data.Set as S
 import           Utils
 
-(><) :: Char -> Char -> Bool
-(><) a b | isUpper a == isUpper b = False
-         | isUpper a = b >< a
-         | otherwise = a == toLower b
-
 react :: String -> String
 react = go ""
-  where go prev "" = reverse prev
+  where a >< b = a /= b && toLower a == toLower b
+        go prev "" = reverse prev
         go "" (n:next) = go [n] next
         go (p:prev) (n:next) | p >< n = go prev next
                              | otherwise = go (n:p:prev) next
