@@ -3,6 +3,7 @@ module Day2.Day2 where
 import qualified Data.IntSet as ISet
 import           Data.List (group, sort)
 import           Data.Maybe (catMaybes, listToMaybe)
+import           Utils
 
 doublesAndTriples :: String -> (Int, Int)
 doublesAndTriples = (\x -> (has x 2, has x 3))
@@ -30,6 +31,6 @@ part2 input =
 
 puzzle :: IO ()
 puzzle = do
-  input <- lines <$> readFile "./src/Day2/input.txt"
+  input <- readLines "./src/Day2/input.txt"
   putStrLn $ "part 1: " <> show (part1 input)
   putStrLn $ "part 2: " <> maybe "No matches!" show (part2 input)

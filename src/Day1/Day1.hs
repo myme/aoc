@@ -3,6 +3,7 @@ module Day1.Day1 where
 import Data.IntSet
 import Data.Maybe
 import Text.Read
+import Utils
 
 parseShift :: String -> Maybe Int
 parseShift ('+' : num) = readMaybe num
@@ -10,8 +11,8 @@ parseShift num         = readMaybe num
 
 changeList :: IO [Int]
 changeList = do
-  input <- readFile "./src/Day1/input.txt"
-  return $ mapMaybe parseShift $ lines input
+  input <- readLines "./src/Day1/input.txt"
+  return $ mapMaybe parseShift input
 
 part2 :: [Int] -> Int
 part2 = go empty . scanl (+) 0 . cycle
