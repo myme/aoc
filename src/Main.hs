@@ -6,7 +6,7 @@ import qualified Day3.Day3 as Day3
 import qualified Day4.Day4 as Day4
 
 main :: IO ()
-main = mapM_ printPuzzle $ zip [1 ..]
+main = mapM_ printPuzzle $ zip ([1 ..] :: [Integer])
   [ Day1.puzzle
   , Day2.puzzle
   , Day3.puzzle
