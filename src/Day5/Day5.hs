@@ -1,7 +1,8 @@
 module Day5.Day5 where
 
-import Data.Char (isAlpha, isUpper, isLower, toLower)
-import Utils
+import           Data.Char (isAlpha, isUpper, isLower, toLower)
+import qualified Data.Set as S
+import           Utils
 
 data Zipper = Z String String
 
@@ -23,5 +24,8 @@ puzzle = do
   let part1 = length $ react input
   expect "part 1: " 9238 part1
 
-  let part2 = "not implemented"
-  expect "part 2: " "" part2
+  let
+    lower = S.toList $ S.fromList $ filter isLower input
+    removed = map (\x -> react $ filter ((/= x) . toLower) input) lower
+    part2 = length $ minBy length removed
+  expect "part 2: " 4052 part2
