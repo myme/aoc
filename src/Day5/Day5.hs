@@ -4,18 +4,16 @@ import           Data.Char (isAlpha, isUpper, isLower, toLower)
 import qualified Data.Set as S
 import           Utils
 
-data Zipper = Z String String
-
 willReact :: Char -> Char -> Bool
 willReact a b = (isUpper a && isLower b && toLower a == b) ||
                 (isLower a && isUpper b && a == toLower b)
 
 react :: String -> String
-react = go . Z ""
-  where go (Z prev "") = reverse prev
-        go (Z "" (n:next)) = go $ Z [n] next
-        go (Z (p:prev) (n:next)) | willReact p n = go $ Z prev next
-                                 | otherwise = go $ Z (n:p:prev) next
+react = go ""
+  where go prev "" = reverse prev
+        go "" (n:next) = go [n] next
+        go (p:prev) (n:next) | willReact p n = go prev next
+                             | otherwise = go (n:p:prev) next
 
 puzzle :: IO ()
 puzzle = do
