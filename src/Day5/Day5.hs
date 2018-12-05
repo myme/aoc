@@ -26,5 +26,5 @@ puzzle = do
   let
     lower = S.toList $ S.fromList $ filter isLower input
     removed = map (\x -> react $ filter ((/= x) . toLower) input) lower
-    part2 = length $ minBy length removed
+    part2 = minimum $ map length removed
   expect "part 2: " 4052 part2
