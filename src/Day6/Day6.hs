@@ -7,6 +7,7 @@ import           Data.Function (on)
 import           Data.Ix (range)
 import qualified Data.List as L
 import           Data.Maybe (catMaybes)
+import           Data.Monoid
 import qualified Data.Set as S
 import           Data.Tuple (swap)
 import           Text.Read
@@ -75,4 +76,10 @@ puzzle =
         dropInfinite = filter (`S.notMember` ignoreChars)
         lengths = map length $ L.group $ L.sort $ dropInfinite $ snd world
       expect "part 1: " 3223 (maximum lengths)
-      expect "part 1: " "not implemented!" ""
+
+      let
+        (bounds, _) = world
+        dists = distances points (getCoords bounds)
+        accum = map (getSum . foldMap (Sum . snd)) dists
+        central = filter (< 10000) accum
+      expect "part 2: " 40495 (length central)
