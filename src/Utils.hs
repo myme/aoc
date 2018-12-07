@@ -1,9 +1,11 @@
 module Utils where
 
+import Control.Arrow ((***), (&&&))
 import Control.Monad (when)
 import Data.Char (isDigit)
 import Data.Function (on)
 import Data.List (maximumBy, minimumBy)
+import Data.Semigroup (Min(..), Max(..))
 import Text.ParserCombinators.ReadP
 
 parseInt :: ReadP Int
@@ -17,6 +19,9 @@ maxBy = maximumBy . (compare `on`)
 
 minBy :: Ord b => (a -> b) -> [a] -> a
 minBy = minimumBy . (compare `on`)
+
+minMax :: (Foldable t, Bounded a, Ord a) => t a -> (a, a)
+minMax = (getMin *** getMax) . foldMap (Min &&& Max)
 
 expect :: (Eq a, Show a) => String -> a -> a -> IO ()
 expect msg expected actual = do
