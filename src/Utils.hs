@@ -14,6 +14,9 @@ parseInt = read <$> many1 (satisfy isDigit)
 readLines :: FilePath -> IO [String]
 readLines filename = lines <$> readFile filename
 
+manhattanDistance :: Num a => (a, a) -> (a, a) -> a
+manhattanDistance (x, y) (x', y') = abs (x - x') + abs (y - y')
+
 maxBy :: Ord b => (a -> b) -> [a] -> a
 maxBy = maximumBy . (compare `on`)
 

@@ -30,9 +30,6 @@ getBounds points = let
   (minY, maxY) = minMax $ map snd points
   in ((minX, minY), (maxX, maxY))
 
-manhattanDistance :: Num a => (a, a) -> (a, a) -> a
-manhattanDistance (x, y) (x', y') = abs (x - x') + abs (y - y')
-
 distances :: [(PointId, Point)] -> [Point] -> [[(PointId, Int)]]
 distances points = map distance
   where distance coord = map (second (manhattanDistance coord)) points
