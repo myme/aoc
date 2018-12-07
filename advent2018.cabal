@@ -22,6 +22,7 @@ executable advent2018
                      , Day3.Day3
                      , Day4.Day4
                      , Day5.Day5
+                     , Day6.Day6
                      , Utils
   build-depends:       base >= 4.7 && < 5
                      , containers
