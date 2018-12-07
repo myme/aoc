@@ -7,7 +7,6 @@ import           Data.Function (on)
 import           Data.Ix (range)
 import qualified Data.List as L
 import           Data.Maybe (catMaybes)
-import           Data.Monoid
 import qualified Data.Set as S
 import           Data.Tuple (swap)
 import           Text.Read
@@ -57,11 +56,10 @@ borderChars (bounds, coords) = S.fromList $ catMaybes isBorder
         onBorder (x, y) = x `elem` [minX, maxX] || y `elem` [minY, maxY]
 
 printWorld :: DistanceMap -> IO ()
-printWorld (bounds, cells) = do
-  let
-    ((min', _), (max', _)) = bounds
-    width = 1 + max' - min'
-  forM_ (zip [0 ..] cells) $ \(idx, point) -> do
+printWorld (bounds, cells) = let
+  ((min', _), (max', _)) = bounds
+  width = 1 + max' - min'
+  in forM_ (zip [0 ..] cells) $ \(idx, point) -> do
     putStr [point]
     when (idx `mod` width == width - 1) $ putStr "\n"
 
@@ -80,6 +78,6 @@ puzzle =
       let
         (bounds, _) = world
         dists = distances points (getCoords bounds)
-        accum = map (getSum . foldMap (Sum . snd)) dists
+        accum = map (sum . map snd) dists
         central = filter (< 10000) accum
       expect "part 2: " 40495 (length central)
