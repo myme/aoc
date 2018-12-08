@@ -22,11 +22,9 @@ getMeta (N (children, meta)) = meta <> concatMap getMeta children
 nodeValue :: Node -> Int
 nodeValue (N ([], meta)) = sum meta
 nodeValue (N (children, meta))= sum $ map childSum meta
-  where childSum childIdx = let
-          value = case  drop (childIdx - 1) children of
-                [] -> 0
-                (child:_) -> nodeValue child
-          in value
+  where childSum childIdx = case drop (childIdx - 1) children of
+          [] -> 0
+          (child:_) -> nodeValue child
 
 puzzle :: IO ()
 puzzle =
