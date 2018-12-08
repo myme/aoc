@@ -5,7 +5,6 @@ import Text.Read (readMaybe)
 import Utils
 
 newtype Node = N ([Node], [Int]) -- ^ (children, metadata)
-  deriving Show
 
 parseNodes :: [Int] -> Node
 parseNodes = fst . go
