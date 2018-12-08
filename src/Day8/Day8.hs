@@ -1,6 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 module Day8.Day8 where
 
+import Control.Arrow (first)
 import Text.Read (readMaybe)
 import Utils
 
@@ -9,13 +10,11 @@ newtype Node = N ([Node], [Int]) -- ^ (children, metadata)
 parseNodes :: [Int] -> Node
 parseNodes = fst . go
   where go (nchld : nmeta : rest) = let
-          (children, rest') = foldr parseChild ([], rest) (replicate nchld go)
+          (children, rest') = foldr parseChild ([], rest) [1 .. nchld]
           (meta, rest'') = splitAt nmeta rest'
           in (N (reverse children, meta), rest'')
         go _ = undefined
-        parseChild f (children, rest) = let
-          (child, rest') = f rest
-          in (child:children, rest')
+        parseChild _ (children, rest) = first (:children) $ go rest
 
 getMeta :: Node -> [Int]
 getMeta (N (children, meta)) = meta <> concatMap getMeta children
