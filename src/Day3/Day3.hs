@@ -1,11 +1,10 @@
 module Day3.Day3 where
 
 import           Control.Monad
-import           Control.Monad.ST
 import qualified Data.IntSet as I
 import qualified Data.Ix as Ix
 import           Data.List (find)
-import           Data.Vector (Vector, (++))
+import           Data.Vector (Vector)
 import qualified Data.Vector as V
 import qualified Data.Vector.Mutable as VM
 import           Prelude hiding ((++))
@@ -26,12 +25,12 @@ index dim = Ix.index ((0, 0), dim)
 
 parseClaim :: ReadP Claim
 parseClaim = do
-  id <- char '#' >> parseInt
+  id' <- char '#' >> parseInt
   x <- string " @ " >> parseInt
   y <- char ',' >> parseInt
   w <- string ": " >> parseInt
   h <- char 'x' >> parseInt <* eof
-  return $ Claim id (Ix.range ((x, y), (x + w - 1, y + h -1)))
+  return $ Claim id' (Ix.range ((x, y), (x + w - 1, y + h -1)))
 
 parseClaims :: [String] -> [Claim]
 parseClaims = map fst . concatMap (readP_to_S parseClaim)
@@ -52,7 +51,7 @@ puzzle = do
 
   let indexed = V.filter ((== 1) . snd) $ V.indexed merged
       indexes = I.fromList $ V.toList $ V.map fst indexed
-      pred (Claim _ idxs) = I.fromList (map (index dim) idxs) `I.isSubsetOf` indexes
-      part2 = find pred claims
+      pred' (Claim _ idxs) = I.fromList (map (index dim) idxs) `I.isSubsetOf` indexes
+      part2 = find pred' claims
 
   expect "part2: " 1067 $ maybe 0 _id part2

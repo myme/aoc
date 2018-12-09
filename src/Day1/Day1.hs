@@ -18,6 +18,7 @@ part2 :: [Int] -> Int
 part2 = go empty . scanl (+) 0 . cycle
   where go set (f:fs) | f `member` set = f
                       | otherwise = go (f `insert` set) fs
+        go _ _ = undefined
 
 puzzle :: IO ()
 puzzle = do
