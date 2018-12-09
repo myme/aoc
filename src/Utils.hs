@@ -5,11 +5,19 @@ import Control.Monad (when)
 import Data.Char (isDigit)
 import Data.Function (on)
 import Data.List (maximumBy, minimumBy)
+import Data.Maybe (listToMaybe)
 import Data.Semigroup (Min(..), Max(..))
 import Text.ParserCombinators.ReadP
 
+(...) :: (b -> c) -> (a1 -> a2 -> b) -> a1 -> a2 -> c
+(...) = (.) . (.)
+infixr 8 ...
+
 parseInt :: ReadP Int
 parseInt = read <$> many1 (satisfy isDigit)
+
+parse :: ReadP a -> String -> Maybe a
+parse = (fmap fst . listToMaybe) ... readP_to_S
 
 readLines :: FilePath -> IO [String]
 readLines filename = lines <$> readFile filename
