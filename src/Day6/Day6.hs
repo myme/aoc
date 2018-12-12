@@ -4,18 +4,14 @@ module Day6.Day6 where
 import           Control.Arrow
 import           Control.Monad (forM_, when)
 import           Data.Function (on)
-import           Data.Ix (range)
 import qualified Data.List as L
 import           Data.Maybe (catMaybes)
 import qualified Data.Set as S
-import           Data.Tuple (swap)
 import           Text.Read
 import           Utils
 
-type Dim = (Int, Int)
-type Point = Dim
+type Dim = Point
 type PointId = Char
-type Bounds = (Dim, Dim)
 
 pointIds :: String
 pointIds = ['a' .. 'z'] ++ ['A' .. 'Z']
@@ -24,21 +20,12 @@ parsePoints :: [String] -> Maybe [(Char, Point)]
 parsePoints = fmap (zip pointIds) . traverse readPoint
   where readPoint line = readMaybe ("(" <> line <> ")")
 
-getBounds :: [Point] -> Bounds
-getBounds points = let
-  (minX, maxX) = minMax $ map fst points
-  (minY, maxY) = minMax $ map snd points
-  in ((minX, minY), (maxX, maxY))
-
 distances :: [(PointId, Point)] -> [Point] -> [[(PointId, Int)]]
 distances points = map distance
   where distance coord = map (second (manhattanDistance coord)) points
 
 groupPoints :: [(PointId, Int)] -> [[(PointId, Int)]]
 groupPoints = L.groupBy ((==) `on` snd) . L.sortBy (compare `on` snd)
-
-getCoords :: Bounds -> [Point]
-getCoords = L.sortBy (compare `on` swap) . range
 
 type DistanceMap = (Bounds, String)
 distanceMap :: [(PointId, Point)] -> DistanceMap

@@ -4,9 +4,11 @@ import Control.Arrow ((***), (&&&))
 import Control.Monad (when)
 import Data.Char (isDigit)
 import Data.Function (on)
-import Data.List (maximumBy, minimumBy)
+import Data.Ix (range)
+import Data.List (maximumBy, minimumBy, sortBy)
 import Data.Maybe (listToMaybe)
 import Data.Semigroup (Min(..), Max(..))
+import Data.Tuple (swap)
 import Text.ParserCombinators.ReadP
 
 (...) :: (b -> c) -> (a1 -> a2 -> b) -> a1 -> a2 -> c
@@ -21,6 +23,17 @@ parse = (fmap fst . listToMaybe) ... readP_to_S
 
 readLines :: FilePath -> IO [String]
 readLines filename = lines <$> readFile filename
+
+type Point = (Int, Int)
+type Bounds = (Point, Point)
+getBounds :: [Point] -> (Point, Point)
+getBounds points = let
+  (minX, maxX) = minMax $ map fst points
+  (minY, maxY) = minMax $ map snd points
+  in ((minX, minY), (maxX, maxY))
+
+getCoords :: Bounds -> [Point]
+getCoords = sortBy (compare `on` swap) . range
 
 manhattanDistance :: Num a => (a, a) -> (a, a) -> a
 manhattanDistance (x, y) (x', y') = abs (x - x') + abs (y - y')
