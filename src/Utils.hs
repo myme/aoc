@@ -16,7 +16,7 @@ import Text.ParserCombinators.ReadP
 infixr 8 ...
 
 parseInt :: ReadP Int
-parseInt = read <$> many1 (satisfy isDigit)
+parseInt = read ... mappend <$> option "" (string "-") <*> many1 (satisfy isDigit)
 
 parse :: ReadP a -> String -> Maybe a
 parse = (fmap fst . listToMaybe) ... readP_to_S
