@@ -9,6 +9,7 @@ import qualified Day6.Day6 as Day6
 import qualified Day7.Day7 as Day7
 import qualified Day8.Day8 as Day8
 import qualified Day9.Day9 as Day9
+import qualified Day10.Day10 as Day10
 
 main :: IO ()
 main = mapM_ printPuzzle $ zip ([1 ..] :: [Integer])
@@ -21,6 +22,7 @@ main = mapM_ printPuzzle $ zip ([1 ..] :: [Integer])
   , Day7.puzzle
   , Day8.puzzle
   , Day9.puzzle
+  , Day10.puzzle
   ]
   where
     printPuzzle x = do
