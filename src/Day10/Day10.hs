@@ -32,9 +32,6 @@ step = map translate
           p' = (fst p + fst v, snd p + snd v)
           in P p' v
 
-steps :: [Point] -> [[Point]]
-steps ps = scanl (flip $ const step) ps (repeat ())
-
 renderPositions :: [Position] -> String
 renderPositions ps =
   let
@@ -51,7 +48,7 @@ renderPositions ps =
     in chr <> newline
 
 stepUntilClosest :: [Point] -> (Int, [Point])
-stepUntilClosest = go . zip [0 ..] . steps where
+stepUntilClosest = go . zip [0 ..] . iterate step where
   size = rangeSize . getBounds . map _point
   go [] = undefined
   go [_] = undefined
