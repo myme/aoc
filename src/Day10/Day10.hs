@@ -33,19 +33,14 @@ step = map translate
           in P p' v
 
 renderPositions :: [Position] -> String
-renderPositions ps =
+renderPositions ps = unlines $
   let
     bounds = getBounds ps
-    ((minX, _), (maxX, _)) = bounds
+    ((minX, minY), (maxX, maxY)) = bounds
     points = S.fromList ps
-    width = maxX - minX
-  in flip concatMap (getCoords bounds) $ \p -> let
-    (x, _) = p
-    x' = x - minX
-    isEol = x' /= 0 && x' `mod` width == 0
-    newline = if isEol then "\n" else ""
-    chr = if p `S.member` points then "█" else "."
-    in chr <> newline
+  in flip map [minY .. maxY] $ \y -> do
+    x <- [minX .. maxX]
+    return $ if (x, y) `S.member` points then '█' else '.'
 
 stepUntilClosest :: [Point] -> (Int, [Point])
 stepUntilClosest = go . zip [0 ..] . iterate step where
