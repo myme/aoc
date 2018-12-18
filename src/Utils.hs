@@ -1,7 +1,7 @@
 module Utils where
 
 import Control.Arrow ((***), (&&&))
-import Control.Monad (when)
+import Control.Monad (join, when)
 import Data.Char (isDigit)
 import Data.Function (on)
 import Data.Ix (range)
@@ -10,6 +10,9 @@ import Data.Maybe (listToMaybe)
 import Data.Semigroup (Min(..), Max(..))
 import Data.Tuple (swap)
 import Text.ParserCombinators.ReadP
+
+both :: (a -> b) -> (a, a) -> (b, b)
+both = join (***)
 
 (...) :: (b -> c) -> (a1 -> a2 -> b) -> a1 -> a2 -> c
 (...) = (.) . (.)
