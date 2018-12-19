@@ -4,6 +4,7 @@ module Day12.Day12 where
 
 import Control.Arrow
 import Data.List
+import Data.Maybe
 import Text.ParserCombinators.ReadP
 import Utils
 
@@ -36,7 +37,7 @@ step :: Rules -> Pots -> Pots
 step rules (Pots x pots) = grow $ Pots (x + 2) (go [] pots) where
   go new (l2:l1:c:r1:r2:rest) = let
     first5 = [l2, l1, c, r1, r2]
-    next = maybe '.' snd $ find ((== first5) . fst) rules
+    next = fromMaybe '.' $ lookup first5 rules
     in go (next:new) (drop 1 first5 <> rest)
   go new _ = reverse new
 
