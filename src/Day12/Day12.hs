@@ -7,14 +7,14 @@ import Data.List
 import Text.ParserCombinators.ReadP
 import Utils
 
-data Pots = Pots Int String
+data Pots = Pots Integer String deriving Eq
 type Rules = [(String, Char)]
 
 grow :: Pots -> Pots
 grow (Pots start pots) =
   let prefix = getPrefix pots
       suffix = getPrefix $ reverse pots
-  in Pots (start - length prefix) (prefix <> pots <> suffix)
+  in Pots (start - fromIntegral (length prefix)) (prefix <> pots <> suffix)
   where getPrefix = elemIndex '#' >>> \case
           Nothing -> ""
           Just x -> replicate (3 - x) '.'
@@ -40,7 +40,7 @@ step rules (Pots x pots) = grow $ Pots (x + 2) (go [] pots) where
     in go (next:new) (drop 1 first5 <> rest)
   go new _ = reverse new
 
-sumPots :: Pots -> Int
+sumPots :: Pots -> Integer
 sumPots (Pots start pots) = sum $ map fst $ filter ((== '#') . snd) $ zip [start ..] pots
 
 puzzle :: IO ()
@@ -50,4 +50,12 @@ puzzle =
     Just (pots, rules) -> do
       let steps = iterate (step rules) pots
       expect "part 1: " 2823 (sumPots (steps !! 20))
-      expect "part 2: " "" ""
+
+      let isDup (_, Pots _ a, Pots _ b) = a == b
+          dup = (\(s, x, _) -> (s, x)) <$> find isDup (zip3 [0 ..] steps (drop 1 steps))
+
+      case dup of
+        Nothing -> fail "No convergence (no termination)"
+        Just (dupSteps, Pots start ps) -> do
+          let part2 = sumPots $ Pots (50000000000 - (dupSteps - start)) ps
+          expect "part 2: " 2900000001856 part2
