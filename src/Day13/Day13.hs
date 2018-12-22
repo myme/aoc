@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 module Day13.Day13 where
 
 import           Control.Monad.RWS
@@ -29,7 +31,7 @@ parseDir _ = Nothing
 
 initState :: [String] -> ([Cart], Railway)
 initState ls = let
-  (carts, turns) = partition isLeft $ do
+  parts = do
     (y, l) <- zip [0 ..] ls
     (x, c) <- zip [0 ..] l
     let coord = (x, y)
@@ -38,36 +40,27 @@ initState ls = let
       else case parseDir c of
              Nothing -> []
              Just dir -> [Left $ Cart coord dir L]
-  in (lefts carts, M.fromList $ rights turns)
+  in (lefts parts, M.fromList $ rights parts)
 
 stepCart :: Cart -> RailwayT Cart
 stepCart (Cart (x, y) dir turn) = do
-  railway <- ask
   let coord' = case dir of
         L -> (x - 1, y)
         R -> (x + 1, y)
         U -> (x, y - 1)
         D -> (x, y + 1)
-  (dir', turn') <- case M.lookup coord' railway of
-    Nothing -> return (dir, turn)
-    Just '/' -> return $ case dir of
-      L -> (D, turn)
-      R -> (U, turn)
-      U -> (R, turn)
-      D -> (L, turn)
-    Just '\\' -> return $ case dir of
-      L -> (U, turn)
-      R -> (D, turn)
-      U -> (L, turn)
-      D -> (R, turn)
+  (turn', dir') <- M.lookup coord' <$> ask >>= \case
+    Nothing -> return (turn, dir)
+    Just '/' -> return $ (,) turn $ case dir of
+      L -> D; R -> U; U -> R; D -> L
+    Just '\\' -> return $ (,) turn $ case dir of
+      L -> U; R -> D; U -> L; D -> R
     Just '+' -> return $ case turn of
-      L -> let d = case dir of
-                 L -> D; R -> U; U -> L; D -> R
-           in (d, U)
-      R -> let d = case dir of
-                 L -> U; R -> D; U -> R; D -> L
-           in (d, L)
-      U -> (dir, R)
+      L -> let d = case dir of L -> D; R -> U; U -> L; D -> R
+           in (U, d)
+      R -> let d = case dir of L -> U; R -> D; U -> R; D -> L
+           in (L, d)
+      U -> (R, dir)
       D -> error "Wrong turn type"
     _ -> error "Invalid char"
   return $ Cart coord' dir' turn'
@@ -92,9 +85,7 @@ stepUntilOneLeft = do
   remaining <- gets (uncurry (<>))
   case remaining of
     [] -> error "All gone!"
-    [x] -> do
-      x' <- stepCart x
-      return (_coord x')
+    [x] -> _coord <$> stepCart x
     _ -> do
       crash <- stepUntilCrash
       (carts, moved) <- get
