@@ -36,10 +36,14 @@ scoreboard :: String
 scoreboard = "37" <> evalState step' initialState
   where step' = concat <$> sequence (repeat step)
 
+sublistIndex :: Eq a => [a] -> [a] -> Int
+sublistIndex _ [] = -1
+sublistIndex as xxs@(x:xs)
+  | all (uncurry (==)) $ zip as xxs = 0
+  | otherwise = 1 + sublistIndex as xs
+
 puzzle :: IO ()
 puzzle = do
-  expect "part 1: " "5158916779" (takeFrom 10 9 scoreboard)
-  expect "part 1: " "0124515891" (takeFrom 10 5 scoreboard)
-  expect "part 1: " "9251071085" (takeFrom 10 18 scoreboard)
-  expect "part 1: " "5941429882" (takeFrom 10 2018 scoreboard)
-  expect "part 1: " "1474315445" (takeFrom 10 540391 scoreboard)
+  let input = 540391
+  expect "part 1: " "1474315445" (takeFrom 10 input scoreboard)
+  expect "part 2: " 20278122 (sublistIndex (show input) scoreboard)
