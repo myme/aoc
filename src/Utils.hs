@@ -54,3 +54,9 @@ expect :: (Eq a, Show a) => String -> a -> a -> IO ()
 expect msg expected actual = do
   when (expected /= actual) $ fail (show actual <> " != " <> show expected)
   putStrLn $ msg <> show actual
+
+sublistIndex :: Eq a => [a] -> [a] -> Int
+sublistIndex _ [] = -1
+sublistIndex as xxs@(_:xs)
+  | all (uncurry (==)) $ zip as xxs = 0
+  | otherwise = 1 + sublistIndex as xs

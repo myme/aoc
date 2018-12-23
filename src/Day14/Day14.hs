@@ -26,7 +26,7 @@ step = do
   recipe1 <- S.index <$> use scores <*> use elf1
   recipe2 <- S.index <$> use scores <*> use elf2
   let res = show (recipe1 + recipe2)
-      new = S.fromList $ fmap (read . (:"")) res
+      new = S.fromList (read . (:"") <$> res)
   ss <- scores <%= (<> new)
   elf1 %= \i -> (i + recipe1 + 1) `mod` S.length ss
   elf2 %= \i -> (i + recipe2 + 1) `mod` S.length ss
@@ -35,12 +35,6 @@ step = do
 scoreboard :: String
 scoreboard = "37" <> evalState step' initialState
   where step' = concat <$> sequence (repeat step)
-
-sublistIndex :: Eq a => [a] -> [a] -> Int
-sublistIndex _ [] = -1
-sublistIndex as xxs@(x:xs)
-  | all (uncurry (==)) $ zip as xxs = 0
-  | otherwise = 1 + sublistIndex as xs
 
 puzzle :: IO ()
 puzzle = do
