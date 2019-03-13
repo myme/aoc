@@ -1,10 +1,15 @@
 module Test.Aoc2015 where
 
+import qualified Aoc2015.Day1.Day1 as Day1
+
 import Test.Hspec
 
 tests :: Spec
 tests = do
-  it "solves Day 1" pending
+  fit "solves Day 1" $ do
+    result <- Day1.puzzle
+    result `shouldBe` 0
+
   it "solves Day 2" pending
   it "solves Day 3" pending
   it "solves Day 4" pending

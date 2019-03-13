@@ -17,7 +17,8 @@ library
   hs-source-dirs:      src
   default-language:    Haskell2010
   ghc-options:         -Wall
-  exposed-modules:     Aoc2018.Day1.Day1
+  exposed-modules:     Aoc2015.Day1.Day1
+                     , Aoc2018.Day1.Day1
                      , Aoc2018.Day2.Day2
                      , Aoc2018.Day3.Day3
                      , Aoc2018.Day4.Day4
