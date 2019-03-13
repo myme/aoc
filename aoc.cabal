@@ -46,6 +46,8 @@ test-suite aoc-test
   main-is:             Main.hs
   default-language:    Haskell2010
   ghc-options:         -Wall
+  other-modules:       Test.Aoc2015
+                     , Test.Aoc2018
   build-depends:       base >= 4.7 && < 5
                      , aoc
                      , hspec
