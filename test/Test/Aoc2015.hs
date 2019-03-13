@@ -6,8 +6,14 @@ import Test.Hspec
 
 tests :: Spec
 tests = do
-  fit "solves Day 1" $ do
-    result <- Day1.puzzle
+  describe "Day 1" $ do
+    it "solves part 1" $ do
+      result <- Day1.part1
+      result `shouldBe` 138
+
+    it "solves part 2" $ do
+      result <- Day1.part2
+      result `shouldBe` 1771
     result `shouldBe` 0
 
   it "solves Day 2" pending
