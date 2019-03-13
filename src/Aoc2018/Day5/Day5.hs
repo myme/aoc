@@ -1,4 +1,4 @@
-module Day5.Day5 where
+module Aoc2018.Day5.Day5 where
 
 import           Data.Char (isAlpha, isLower, toLower)
 import qualified Data.Set as S
@@ -14,7 +14,7 @@ react = go ""
 
 puzzle :: IO ()
 puzzle = do
-  input <- filter isAlpha <$> readFile "./src/Day5/input.txt"
+  input <- filter isAlpha <$> readFile "./src/Aoc2018/Day5/input.txt"
 
   let part1 = length $ react input
   expect "part 1: " 9238 part1

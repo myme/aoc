@@ -1,7 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE TupleSections #-}
 
-module Day4.Day4 where
+module Aoc2018.Day4.Day4 where
 
 import           Control.Applicative ((<|>))
 import qualified Data.IntMap.Strict as M
@@ -63,7 +63,7 @@ groupShifts = foldr (join . create) M.empty
         join = M.unionWith $ V.zipWith (+)
 
 puzzle :: IO ()
-puzzle = parseEvents <$> readLines "./src/Day4/input.txt" >>= \case
+puzzle = parseEvents <$> readLines "./src/Aoc2018/Day4/input.txt" >>= \case
     Nothing -> putStrLn "No parse"
     Just events -> do
       let sleepMap = groupShifts $ reduceEvents events

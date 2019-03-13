@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 
-module Day15.Day15 where
+module Aoc2018.Day15.Day15 where
 
 import           Control.Monad.State
 import           Data.Either

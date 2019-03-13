@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 
-module Day14.Day14 where
+module Aoc2018.Day14.Day14 where
 
 import           Control.Monad.State
 import qualified Data.Sequence as S

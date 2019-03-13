@@ -1,4 +1,4 @@
-module Day1.Day1 where
+module Aoc2018.Day1.Day1 where
 
 import Data.IntSet
 import Data.Maybe
@@ -11,7 +11,7 @@ parseShift num         = readMaybe num
 
 changeList :: IO [Int]
 changeList = do
-  input <- readLines "./src/Day1/input.txt"
+  input <- readLines "./src/Aoc2018/Day1/input.txt"
   return $ mapMaybe parseShift input
 
 part2 :: [Int] -> Int

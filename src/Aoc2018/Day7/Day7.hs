@@ -1,5 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
-module Day7.Day7 where
+
+module Aoc2018.Day7.Day7 where
 
 import           Control.Arrow
 import qualified Data.Map.Strict as M
@@ -59,7 +60,7 @@ timedWorkflow workers = go 0 "" []
 
 puzzle :: IO ()
 puzzle =
-  parseDeps <$> readLines "./src/Day7/input.txt" >>= \case
+  parseDeps <$> readLines "./src/Aoc2018/Day7/input.txt" >>= \case
     Nothing -> fail "no parse"
     Just deps -> do
       let

@@ -1,4 +1,4 @@
-name:                advent2018
+name:                aoc
 version:             0.1.0.0
 -- synopsis:
 -- description:
@@ -13,25 +13,25 @@ build-type:          Simple
 cabal-version:       >=1.10
 extra-source-files:  README.md
 
-executable advent2018
+executable aoc
   hs-source-dirs:      src
   main-is:             Main.hs
   default-language:    Haskell2010
-  other-modules:       Day1.Day1
-                     , Day2.Day2
-                     , Day3.Day3
-                     , Day4.Day4
-                     , Day5.Day5
-                     , Day6.Day6
-                     , Day7.Day7
-                     , Day8.Day8
-                     , Day9.Day9
-                     , Day10.Day10
-                     , Day11.Day11
-                     , Day12.Day12
-                     , Day13.Day13
-                     , Day14.Day14
-                     , Day15.Day15
+  other-modules:       Aoc2018.Day1.Day1
+                     , Aoc2018.Day2.Day2
+                     , Aoc2018.Day3.Day3
+                     , Aoc2018.Day4.Day4
+                     , Aoc2018.Day5.Day5
+                     , Aoc2018.Day6.Day6
+                     , Aoc2018.Day7.Day7
+                     , Aoc2018.Day8.Day8
+                     , Aoc2018.Day9.Day9
+                     , Aoc2018.Day10.Day10
+                     , Aoc2018.Day11.Day11
+                     , Aoc2018.Day12.Day12
+                     , Aoc2018.Day13.Day13
+                     , Aoc2018.Day14.Day14
+                     , Aoc2018.Day15.Day15
                      , Utils
   build-depends:       base >= 4.7 && < 5
                      , containers

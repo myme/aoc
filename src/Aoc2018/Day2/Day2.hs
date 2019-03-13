@@ -1,4 +1,4 @@
-module Day2.Day2 where
+module Aoc2018.Day2.Day2 where
 
 import qualified Data.IntSet as ISet
 import           Data.List (group, sort)
@@ -31,6 +31,6 @@ part2 input =
 
 puzzle :: IO ()
 puzzle = do
-  input <- readLines "./src/Day2/input.txt"
+  input <- readLines "./src/Aoc2018/Day2/input.txt"
   expect "part 1: " 5434 (part1 input)
   expect "part 2: " "agimdjvlhedpsyoqfzuknpjwt" $ fromMaybe "No matches!" (part2 input)

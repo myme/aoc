@@ -1,5 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
-module Day8.Day8 where
+
+module Aoc2018.Day8.Day8 where
 
 import Control.Arrow (first)
 import Text.Read (readMaybe)
@@ -28,7 +29,7 @@ nodeValue (N (children, meta))= sum $ map childSum meta
 
 puzzle :: IO ()
 puzzle =
-  traverse readMaybe . words <$> readFile "./src/Day8/input.txt" >>= \case
+  traverse readMaybe . words <$> readFile "./src/Aoc2018/Day8/input.txt" >>= \case
     Nothing -> fail "No parse"
     Just input -> do
       let tree = parseNodes input

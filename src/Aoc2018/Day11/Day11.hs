@@ -1,6 +1,6 @@
 {-# LANGUAGE TupleSections #-}
 
-module Day11.Day11 where
+module Aoc2018.Day11.Day11 where
 
 import           Control.Monad.Reader
 import           Data.Ix

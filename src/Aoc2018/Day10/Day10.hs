@@ -1,6 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Day10.Day10 where
+module Aoc2018.Day10.Day10 where
 
 import           Control.Monad (when)
 import           Data.Ix (rangeSize)
@@ -52,7 +52,7 @@ stepUntilClosest = go . zip [0 ..] . iterate step where
 
 puzzle :: IO ()
 puzzle =
-  traverse parsePoint <$> readLines "./src/Day10/input.txt" >>= \case
+  traverse parsePoint <$> readLines "./src/Aoc2018/Day10/input.txt" >>= \case
     Nothing -> fail "No parse"
     Just points -> do
       let

@@ -2,7 +2,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TupleSections #-}
 
-module Day9.Day9 where
+module Aoc2018.Day9.Day9 where
 
 import qualified Data.IntMap.Strict as M
 import           Data.Monoid
@@ -79,7 +79,7 @@ runGame p m = repeatEndo m step $ initialGame p
 
 puzzle :: IO ()
 puzzle =
-  parseInput <$> readFile "./src/Day9/input.txt" >>= \case
+  parseInput <$> readFile "./src/Aoc2018/Day9/input.txt" >>= \case
     Nothing -> fail "No parse"
     Just (ps, ms) -> do
       let highscore = maximum . map snd . M.toList . view score

@@ -1,4 +1,4 @@
-module Day3.Day3 where
+module Aoc2018.Day3.Day3 where
 
 import           Control.Monad
 import qualified Data.IntSet as I
@@ -42,7 +42,7 @@ applyClaims (Fabric dim vect) claims = Fabric dim (V.modify apply vect)
 
 puzzle :: IO ()
 puzzle = do
-  claims <- parseClaims . lines <$> readFile "./src/Day3/input.txt"
+  claims <- parseClaims . lines <$> readFile "./src/Aoc2018/Day3/input.txt"
 
   let (Fabric dim merged) = applyClaims empty claims
       part1 = V.length $ V.filter (> 1) merged

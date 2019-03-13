@@ -1,6 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Day13.Day13 where
+module Aoc2018.Day13.Day13 where
 
 import           Control.Monad.RWS
 import           Data.Either
@@ -96,7 +96,7 @@ stepUntilOneLeft = do
 
 puzzle :: IO ()
 puzzle = do
-  (carts, railway) <- initState <$> readLines "./src/Day13/input.txt"
+  (carts, railway) <- initState <$> readLines "./src/Aoc2018/Day13/input.txt"
   let (part1, _) = evalRWS stepUntilCrash railway (carts, [])
   expect "part 1: " (50, 54) part1
   let (part2, _) = evalRWS stepUntilOneLeft railway (carts, [])

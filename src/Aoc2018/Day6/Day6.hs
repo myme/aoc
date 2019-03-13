@@ -1,5 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
-module Day6.Day6 where
+
+module Aoc2018.Day6.Day6 where
 
 import           Control.Arrow
 import           Control.Monad (forM_, when)
@@ -52,7 +53,7 @@ printWorld (bounds, cells) = let
 
 puzzle :: IO ()
 puzzle =
-  parsePoints <$> readLines "./src/Day6/input.txt" >>= \case
+  parsePoints <$> readLines "./src/Aoc2018/Day6/input.txt" >>= \case
     Nothing -> fail "No parse"
     Just points -> do
       let

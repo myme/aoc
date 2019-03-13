@@ -1,6 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Day12.Day12 where
+module Aoc2018.Day12.Day12 where
 
 import Control.Arrow
 import Data.List
@@ -46,7 +46,7 @@ sumPots (Pots start pots) = sum $ map fst $ filter ((== '#') . snd) $ zip [start
 
 puzzle :: IO ()
 puzzle =
-  parseInput <$> readFile "./src/Day12/input.txt" >>= \case
+  parseInput <$> readFile "./src/Aoc2018/Day12/input.txt" >>= \case
     Nothing -> fail "No parse"
     Just (pots, rules) -> do
       let steps = iterate (step rules) pots
