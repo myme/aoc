@@ -19,7 +19,7 @@ import           Test.Hspec
 
 tests :: Spec
 tests = do
-  xdescribe "Day 1" $ do
+  describe "Day 1" $ do
     it "solves part 1" $ do
       part1 <- Day1.part1
       part1 `shouldBe` 531
@@ -28,19 +28,19 @@ tests = do
       part2 <- Day1.part2
       part2 `shouldBe` 76787
 
-  xit "solves Day 2"  Day2.puzzle
-  xit "solves Day 3"  Day3.puzzle
-  xit "solves Day 4"  Day4.puzzle
-  xit "solves Day 5"  Day5.puzzle
-  xit "solves Day 6"  Day6.puzzle
-  xit "solves Day 7"  Day7.puzzle
-  xit "solves Day 8"  Day8.puzzle
-  xit "solves Day 9"  Day9.puzzle
-  xit "solves Day 10" Day10.puzzle
-  xit "solves Day 11" Day11.puzzle
-  xit "solves Day 12" Day12.puzzle
-  xit "solves Day 13" Day13.puzzle
-  xit "solves Day 14" Day14.puzzle
+  it "solves Day 2"  Day2.puzzle
+  it "solves Day 3"  Day3.puzzle
+  it "solves Day 4"  Day4.puzzle
+  it "solves Day 5"  Day5.puzzle
+  it "solves Day 6"  Day6.puzzle
+  it "solves Day 7"  Day7.puzzle
+  it "solves Day 8"  Day8.puzzle
+  it "solves Day 9"  Day9.puzzle
+  it "solves Day 10" Day10.puzzle
+  it "solves Day 11" Day11.puzzle
+  it "solves Day 12" Day12.puzzle
+  it "solves Day 13" Day13.puzzle
+  it "solves Day 14" Day14.puzzle
   xit "solves Day 15" Day15.puzzle
   it "solves Day 16" pending
   it "solves Day 17" pending
