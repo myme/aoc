@@ -18,21 +18,21 @@ import qualified Day15.Day15 as Day15
 
 main :: IO ()
 main = mapM_ printPuzzle $ zip ([1 ..] :: [Integer])
-  [ Day1.puzzle
-  , Day2.puzzle
-  , Day3.puzzle
-  , Day4.puzzle
-  , Day5.puzzle
-  , Day6.puzzle
-  , Day7.puzzle
-  , Day8.puzzle
-  , Day9.puzzle
-  , Day10.puzzle
-  , Day11.puzzle
-  , Day12.puzzle
-  , Day13.puzzle
-  , Day14.puzzle
-  , Day15.puzzle
+  -- [ Day1.puzzle
+  -- , Day2.puzzle
+  -- , Day3.puzzle
+  -- , Day4.puzzle
+  -- , Day5.puzzle
+  -- , Day6.puzzle
+  -- , Day7.puzzle
+  -- , Day8.puzzle
+  -- , Day9.puzzle
+  -- , Day10.puzzle
+  -- , Day11.puzzle
+  -- , Day12.puzzle
+  -- , Day13.puzzle
+  -- , Day14.puzzle
+  [ Day15.puzzle
   ]
   where
     printPuzzle x = do
