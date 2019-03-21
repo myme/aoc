@@ -16,26 +16,23 @@ move c (x, y) = case c of
   '<' -> (x - 1, y)
   _   -> (x, y)
 
-deliver :: Position -> String -> Visited -> Visited
-deliver pos []     visited = S.singleton pos <> visited
-deliver pos (v:vs) visited = S.singleton pos <> deliver (move v pos) vs visited
+deliver :: String -> Visited
+deliver moves = go (0, 0) moves S.empty
+  where go pos []     visited = S.singleton pos <> visited
+        go pos (v:vs) visited = S.singleton pos <> go (move v pos) vs visited
 
 part1 :: IO Int
-part1 = do
-  moves <- input
-  let visited = deliver (0, 0) moves S.empty
-  pure (S.size visited)
+part1 = S.size . deliver <$> input
 
 splitMoves :: [a] -> ([a], [a])
 splitMoves = go False ([], [])
   where go _ (xs, ys) [] = (reverse xs, reverse ys)
-        go l (xs, ys) (n:ns)
-          | l         = go (not l) (n:xs, ys) ns
-          | otherwise = go (not l) (xs, n:ys) ns
+        go l (xs, ys) (m:ms)
+          | l         = go (not l) (xs, m:ys) ms
+          | otherwise = go (not l) (m:xs, ys) ms
 
 part2 :: IO Int
 part2 = do
   (santa, robo) <- splitMoves <$> input
-  let deliver' moves = deliver (0, 0) moves S.empty
-      visited = deliver' santa <> deliver' robo
+  let visited = deliver santa <> deliver robo
   pure (S.size visited)
