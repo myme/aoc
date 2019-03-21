@@ -60,3 +60,7 @@ sublistIndex _ [] = -1
 sublistIndex as xxs@(_:xs)
   | all (uncurry (==)) $ zip as xxs = 0
   | otherwise = 1 + sublistIndex as xs
+
+everyOther :: Int -> [a] -> [a]
+everyOther n (x:xs) = x : everyOther n (drop n xs)
+everyOther _ x = x
