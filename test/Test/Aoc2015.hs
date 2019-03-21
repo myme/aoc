@@ -31,6 +31,10 @@ tests = do
       result <- Day3.part1
       result `shouldBe` 2565
 
+    it "solves part 2" $ do
+      result <- Day3.part2
+      result `shouldBe` 2639
+
   it "solves Day 4" pending
   it "solves Day 5" pending
   it "solves Day 6" pending
