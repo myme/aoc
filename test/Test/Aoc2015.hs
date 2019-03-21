@@ -26,7 +26,7 @@ tests = do
       result <- Day2.part2
       result `shouldBe` 3842356
 
-  describe "solves Day 3" $ do
+  describe "Day 3" $ do
     it "solves part 1" $ do
       result <- Day3.part1
       result `shouldBe` 2565

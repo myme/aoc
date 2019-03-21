@@ -1,6 +1,8 @@
 module Aoc2015.Day3.Day3 where
 
+import           Control.Arrow
 import qualified Data.Set as S
+import           Utils
 
 type Position = (Int, Int)
 type Visited = S.Set Position
@@ -24,15 +26,8 @@ deliver moves = go (0, 0) moves S.empty
 part1 :: IO Int
 part1 = S.size . deliver <$> input
 
-splitMoves :: [a] -> ([a], [a])
-splitMoves = go False ([], [])
-  where go _ (xs, ys) [] = (reverse xs, reverse ys)
-        go l (xs, ys) (m:ms)
-          | l         = go (not l) (xs, m:ys) ms
-          | otherwise = go (not l) (m:xs, ys) ms
-
 part2 :: IO Int
 part2 = do
-  (santa, robo) <- splitMoves <$> input
-  let visited = deliver santa <> deliver robo
-  pure (S.size visited)
+  let deliver' = deliver . everyOther 1
+  (santa, robo) <- (deliver' &&& deliver' . drop 1) <$> input
+  pure $ S.size (santa <> robo)
