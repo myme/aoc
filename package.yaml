@@ -1,0 +1,33 @@
+name:       aoc
+version:    0.1.0.0
+github:     "myme/aoc"
+license:    BSD3
+author:     "Martin Myrseth"
+maintainer: "@myme"
+copyright:  "2018-2019 Martin Myrseth"
+
+description: Please see the README on GitHub at <https://github.com/myme/i3ws#readme>
+
+extra-source-files: README.md
+
+ghc-options:
+  - -Wall
+
+library:
+  source-dirs:      src
+  dependencies:
+    - base >= 4.7 && < 5
+    - containers
+    - microlens-platform
+    - mtl
+    - vector
+
+tests:
+  aoc-test:
+    main: Main.hs
+    source-dirs: test
+    dependencies:
+      - base >= 4.7 && < 5
+      - aoc
+      - hspec
+      - QuickCheck
