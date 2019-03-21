@@ -11,17 +11,15 @@ input :: IO String
 input = readFile "./src/Aoc2015/Day3/input.txt"
 
 move :: Char -> Position -> Position
-move c (x, y) = case c of
-  '^' -> (x, y - 1)
-  'v' -> (x, y + 1)
-  '>' -> (x + 1, y)
-  '<' -> (x - 1, y)
-  _   -> (x, y)
+move = \case
+  '^' -> second pred
+  'v' -> second succ
+  '>' -> first  pred
+  '<' -> first  succ
+  _   -> id
 
 deliver :: String -> Visited
-deliver moves = go (0, 0) moves S.empty
-  where go pos []     visited = S.singleton pos <> visited
-        go pos (v:vs) visited = S.singleton pos <> go (move v pos) vs visited
+deliver = S.fromList . scanl (flip move) (0, 0)
 
 part1 :: IO Int
 part1 = S.size . deliver <$> input

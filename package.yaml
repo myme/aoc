@@ -13,6 +13,11 @@ extra-source-files: README.md
 ghc-options:
   - -Wall
 
+default-extensions:
+  - DeriveGeneric
+  - LambdaCase
+  - OverloadedStrings
+
 library:
   source-dirs:      src
   dependencies:
