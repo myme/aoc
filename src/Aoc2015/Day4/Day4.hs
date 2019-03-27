@@ -15,11 +15,13 @@ md5list :: [(Int, String)]
 md5list = map (id &&& compute) [1 ..]
   where compute = md5 . (input <>) . BS.pack . show
 
-findMd5 :: Int -> Maybe Int
-findMd5 n = fst <$> find (isPrefixOf (replicate n '0') . snd) md5list
+findMd5 :: Int -> IO Int
+findMd5 n = do
+  let result = fst <$> find (isPrefixOf (replicate n '0') . snd) md5list
+  maybe (fail "md5 not found") pure result
 
-part1 :: Maybe Int
+part1 :: IO Int
 part1 = findMd5 5
 
-part2 :: Maybe Int
+part2 :: IO Int
 part2 = findMd5 6

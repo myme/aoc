@@ -38,10 +38,12 @@ tests = do
 
   describe "Day 4" $ do
     it "solves part 1" $ do
-      Day4.part1 `shouldBe` Just 346386
+      result <- Day4.part1
+      result `shouldBe` 346386
 
     xit "solves part 2" $ do
-      Day4.part2 `shouldBe` Just 9958218
+      result <- Day4.part2
+      result `shouldBe` 9958218
 
   it "solves Day 5" pending
   it "solves Day 6" pending
