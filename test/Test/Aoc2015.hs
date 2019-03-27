@@ -3,6 +3,7 @@ module Test.Aoc2015 where
 import qualified Aoc2015.Day1.Day1 as Day1
 import qualified Aoc2015.Day2.Day2 as Day2
 import qualified Aoc2015.Day3.Day3 as Day3
+import qualified Aoc2015.Day4.Day4 as Day4
 
 import Test.Hspec
 
@@ -35,7 +36,13 @@ tests = do
       result <- Day3.part2
       result `shouldBe` 2639
 
-  it "solves Day 4" pending
+  describe "Day 4" $ do
+    it "solves part 1" $ do
+      Day4.part1 `shouldBe` Just 346386
+
+    xit "solves part 2" $ do
+      Day4.part2 `shouldBe` Just 9958218
+
   it "solves Day 5" pending
   it "solves Day 6" pending
   it "solves Day 7" pending

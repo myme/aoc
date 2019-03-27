@@ -22,7 +22,9 @@ library:
   source-dirs:      src
   dependencies:
     - base >= 4.7 && < 5
+    - bytestring
     - containers
+    - cryptonite
     - microlens-platform
     - mtl
     - vector
