@@ -1,5 +1,6 @@
 module Aoc2015.Day4.Day4 where
 
+import           Control.Arrow ((&&&))
 import           Crypto.Hash
 import qualified Data.ByteString.Char8 as BS
 import           Data.List
@@ -11,7 +12,7 @@ input :: BS.ByteString
 input = "iwrupvqb"
 
 md5list :: [(Int, String)]
-md5list = map (\x -> (,) x (compute x)) ([1 ..] :: [Int])
+md5list = map (id &&& compute) [1 ..]
   where compute = md5 . (input <>) . BS.pack . show
 
 findMd5 :: Int -> Maybe Int
