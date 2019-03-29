@@ -4,6 +4,7 @@ import qualified Aoc2015.Day1.Day1 as Day1
 import qualified Aoc2015.Day2.Day2 as Day2
 import qualified Aoc2015.Day3.Day3 as Day3
 import qualified Aoc2015.Day4.Day4 as Day4
+import qualified Aoc2015.Day5.Day5 as Day5
 
 import Test.Hspec
 
@@ -36,16 +37,20 @@ tests = do
       result <- Day3.part2
       result `shouldBe` 2639
 
-  describe "Day 4" $ do
+  xdescribe "Day 4" $ do
     it "solves part 1" $ do
       result <- Day4.part1
       result `shouldBe` 346386
 
-    xit "solves part 2" $ do
+    it "solves part 2" $ do
       result <- Day4.part2
       result `shouldBe` 9958218
 
-  it "solves Day 5" pending
+  describe "Day 5" $ do
+    it "solves part1" $ do
+      result <- Day5.part1
+      result `shouldBe` 255
+
   it "solves Day 6" pending
   it "solves Day 7" pending
   it "solves Day 8" pending

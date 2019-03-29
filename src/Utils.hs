@@ -25,7 +25,7 @@ parse :: ReadP a -> String -> Maybe a
 parse = (fmap fst . listToMaybe) ... readP_to_S
 
 readLines :: FilePath -> IO [String]
-readLines filename = lines <$> readFile filename
+readLines = fmap lines . readFile
 
 type Point = (Int, Int)
 type Bounds = (Point, Point)
