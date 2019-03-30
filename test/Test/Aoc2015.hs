@@ -51,6 +51,23 @@ tests = do
       result <- Day5.part1
       result `shouldBe` 255
 
+    it "solves part2" $ do
+      result <- Day5.part2
+      result `shouldBe` 55
+
+    describe "isNicePart2" $ do
+      it "qjhvhtzxzqqjkmpb is nice" $ do
+        Day5.isNicePart2 "qjhvhtzxzqqjkmpb" `shouldBe` True
+
+      it "xxyxx is nice" $ do
+        Day5.isNicePart2 "xxyxx" `shouldBe` True
+
+      it "uurcxstgmygtbstg is naughty" $ do
+        Day5.isNicePart2 "uurcxstgmygtbstg" `shouldBe` False
+
+      it "ieodomkazucvgmuy is naughty" $ do
+        Day5.isNicePart2 "ieodomkazucvgmuy" `shouldBe` False
+
   it "solves Day 6" pending
   it "solves Day 7" pending
   it "solves Day 8" pending
