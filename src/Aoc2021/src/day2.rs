@@ -1,20 +1,44 @@
 use std::fs;
 
-struct Motion<'a> {
-    direction: &'a str,
-    amount: u32,
+enum Direction {
+    Forward,
+    Down,
+    Up,
 }
 
-fn part1(motions: &Vec<Motion>) -> u32 {
+struct Motion {
+    direction: Direction,
+    amount: i32,
+}
+
+fn part1(motions: &Vec<Motion>) -> i32 {
     let mut depth = 0;
     let mut position = 0;
 
     for motion in motions {
-        match motion.direction {
-            "forward" => { position += motion.amount },
-            "down" => { depth += motion.amount },
-            "up" => { depth -= motion.amount },
-            _ => panic!("Invalid input"),
+        match &motion.direction {
+            Direction::Forward => { position += motion.amount },
+            Direction::Down => { depth += motion.amount },
+            Direction::Up => { depth -= motion.amount },
+        };
+    }
+
+    depth * position
+}
+
+fn part2(motions: &Vec<Motion>) -> i32 {
+    let mut aim: i32 = 0;
+    let mut depth: i32 = 0;
+    let mut position = 0;
+
+    for motion in motions {
+        match &motion.direction {
+            Direction::Forward => {
+                position += motion.amount;
+                depth += motion.amount * aim;
+            },
+            Direction::Down => { aim += motion.amount },
+            Direction::Up => { aim -= motion.amount },
         };
     }
 
@@ -36,13 +60,20 @@ pub fn day2() {
             continue;
         }
 
+        let dir = match words[0] {
+            "forward" => Direction::Forward,
+            "down" => Direction::Down,
+            "up" => Direction::Up,
+            _ => panic!("Invalid input"),
+        };
+
         motions.push(Motion {
-            direction: words[0],
+            direction: dir,
             amount: words[1].parse().unwrap(),
         })
     }
 
     println!("Day 2");
     println!("  Part 1: {}", part1(&motions));
-    println!("  Part 2");
+    println!("  Part 2: {}", part2(&motions));
 }
