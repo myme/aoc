@@ -36,7 +36,6 @@ fn part2(numbers: &Vec<u32>) -> u32 {
 }
 
 pub fn day1() {
-    // let input = fs::read_to_string("./input/day1-small.txt")
     let input = fs::read_to_string("./input/day1.txt")
         .expect("Unable to read input file");
 
@@ -48,6 +47,7 @@ pub fn day1() {
         numbers.push(line.parse().unwrap());
     }
 
-    println!("Part 1: {}", part1(&numbers));
-    println!("Part 2: {}", part2(&numbers));
+    println!("Day 1");
+    println!("  Part 1: {}", part1(&numbers));
+    println!("  Part 2: {}", part2(&numbers));
 }
