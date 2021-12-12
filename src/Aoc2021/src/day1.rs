@@ -1,8 +1,8 @@
 use std::{collections::VecDeque, fs};
 
-fn part1(numbers: &Vec<u32>) -> u32 {
-    let mut larger: u32 = 0;
-    let mut prev: Option<u32> = None;
+fn part1(numbers: &Vec<i32>) -> i32 {
+    let mut larger: i32 = 0;
+    let mut prev: Option<i32> = None;
 
     for number in numbers {
         if let Some(p) = prev {
@@ -16,8 +16,8 @@ fn part1(numbers: &Vec<u32>) -> u32 {
     larger
 }
 
-fn part2(numbers: &Vec<u32>) -> u32 {
-    let mut larger: u32 = 0;
+fn part2(numbers: &Vec<i32>) -> i32 {
+    let mut larger: i32 = 0;
     let mut deque = VecDeque::new();
 
     for number in numbers {
@@ -35,11 +35,11 @@ fn part2(numbers: &Vec<u32>) -> u32 {
     larger
 }
 
-pub fn day1() {
+pub fn day1() -> (i32, i32) {
     let input = fs::read_to_string("./input/day1.txt")
         .expect("Unable to read input file");
 
-    let mut numbers: Vec<u32> = vec!();
+    let mut numbers: Vec<i32> = vec!();
     for line in input.split("\n") {
         if line.trim().is_empty() {
             continue;
@@ -47,7 +47,5 @@ pub fn day1() {
         numbers.push(line.parse().unwrap());
     }
 
-    println!("Day 1");
-    println!("  Part 1: {}", part1(&numbers));
-    println!("  Part 2: {}", part2(&numbers));
+    (part1(&numbers), part2(&numbers))
 }

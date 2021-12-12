@@ -45,7 +45,7 @@ fn part2(motions: &Vec<Motion>) -> i32 {
     depth * position
 }
 
-pub fn day2() {
+pub fn day2() -> (i32, i32) {
     let input = fs::read_to_string("./input/day2.txt")
         .expect("Unable to read input file");
 
@@ -73,7 +73,5 @@ pub fn day2() {
         })
     }
 
-    println!("Day 2");
-    println!("  Part 1: {}", part1(&motions));
-    println!("  Part 2: {}", part2(&motions));
+    (part1(&motions), part2(&motions))
 }
