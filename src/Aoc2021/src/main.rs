@@ -2,6 +2,7 @@ use std::fs;
 
 mod day1;
 mod day2;
+mod day3;
 
 fn read_lines(fname: &str) -> Vec<String> {
     let input = fs::read_to_string(fname)
@@ -27,4 +28,5 @@ fn run_day(day: u32, in_file: &str, func: fn(&Vec<String>) -> (i32, i32)) {
 fn main() {
     run_day(1, "./input/day1.txt", day1::day1);
     run_day(2, "./input/day2.txt", day2::day2);
+    run_day(3, "./input/day3.txt", day3::day3);
 }
