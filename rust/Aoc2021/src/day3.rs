@@ -53,7 +53,7 @@ struct BinTrie {
     one: Branch,
 }
 
-fn update_branch(branch: &mut Branch) -> &mut BinTrie {
+fn reify_branch(branch: &mut Branch) -> &mut BinTrie {
     if let None = branch {
         let new = Box::new(BinTrie {
             count: 0,
@@ -83,8 +83,8 @@ fn build_trie(lines: &Vec<String>) -> BinTrie {
         for bit in line.chars() {
             node.count += 1;
             match bit {
-                '0' => node = update_branch(&mut node.zero),
-                '1' => node = update_branch(&mut node.one),
+                '0' => node = reify_branch(&mut node.zero),
+                '1' => node = reify_branch(&mut node.one),
                 _ => panic!("Invalid line bit {} in {}", bit, line),
             }
         }
@@ -106,54 +106,47 @@ fn print_trie(trie: &BinTrie, prefix: &str) {
     }
 }
 
-fn find_o2_gen_rating(trie: &BinTrie, prefix: &str) -> String {
-    let zeroes = trie.zero.as_ref().map_or(0, |branch| branch.count);
-    let ones = trie.one.as_ref().map_or(0, |branch| branch.count);
+enum Direction { Left, Right }
 
-    if zeroes > ones {
-        if let Some(b) = &trie.zero {
-            find_o2_gen_rating(b, &format!("{}0", prefix))
-        } else {
-            String::from(prefix)
-        }
-    } else {
-        if let Some(b) = &trie.one {
-            find_o2_gen_rating(b, &format!("{}1", prefix))
-        } else {
-            String::from(prefix)
-        }
+fn find_node_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String where F: Fn(&BinTrie) -> Direction {
+    match pred(trie) {
+        Direction::Left => {
+            if let Some(b) = &trie.zero {
+                find_node_path(b, &format!("{}0", prefix), pred)
+            } else if let Some(b) = &trie.one {
+                find_node_path(b, &format!("{}1", prefix), pred)
+            } else {
+                String::from(prefix)
+            }
+        },
+        Direction::Right => {
+            if let Some(b) = &trie.one {
+                find_node_path(b, &format!("{}1", prefix), pred)
+            } else if let Some(b) = &trie.zero {
+                find_node_path(b, &format!("{}0", prefix), pred)
+            } else {
+                String::from(prefix)
+            }
+        },
     }
 }
 
-fn find_co2_scrub_rating(trie: &BinTrie, prefix: &str) -> String {
-    let zeroes = trie.zero.as_ref().map_or(0, |branch| branch.count);
-    let ones = trie.one.as_ref().map_or(0, |branch| branch.count);
-
-    if zeroes <= ones {
-        if let Some(b) = &trie.zero {
-            find_co2_scrub_rating(b, &format!("{}0", prefix))
-        } else if let Some(b) = &trie.one {
-            find_co2_scrub_rating(b, &format!("{}1", prefix))
-        } else {
-            String::from(prefix)
-        }
-    } else {
-        if let Some(b) = &trie.one {
-            find_co2_scrub_rating(b, &format!("{}1", prefix))
-        } else if let Some(b) = &trie.zero {
-            find_co2_scrub_rating(b, &format!("{}0", prefix))
-        } else {
-            String::from(prefix)
-        }
-    }
+fn find_node_value_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String where F: Fn(i32, i32) -> Direction {
+    find_node_path(trie, prefix, |branch| {
+        let zeroes = branch.zero.as_ref().map_or(0, |branch| branch.count);
+        let ones = branch.one.as_ref().map_or(0, |branch| branch.count);
+        pred(zeroes, ones)
+    })
 }
 
 fn part2(trie: &BinTrie) -> i32 {
-    let o2_gen_rating_str = &find_o2_gen_rating(&trie, "");
-    let co2_scrub_rating_str = &find_co2_scrub_rating(&trie, "");
+    let o2_gen_rating_str = find_node_value_path(
+        &trie, "", |zero, one| if zero > one { Direction::Left } else { Direction::Right });
+    let co2_scrub_rating_str = find_node_value_path(
+        &trie, "", |zero, one| if zero <= one { Direction::Left } else { Direction::Right });
 
-    let o2_gen_rating = from_binary_string(o2_gen_rating_str);
-    let co2_scrub_rating = from_binary_string(co2_scrub_rating_str);
+    let o2_gen_rating = from_binary_string(&o2_gen_rating_str);
+    let co2_scrub_rating = from_binary_string(&co2_scrub_rating_str);
 
     o2_gen_rating * co2_scrub_rating
 }
