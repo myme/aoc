@@ -46,10 +46,6 @@ fn part2(motions: &Vec<Motion>) -> i32 {
 pub fn day2(lines: &Vec<String>) -> (i32, i32) {
     let mut motions: Vec<Motion> = vec!();
     for line in lines {
-        if line.trim().is_empty() {
-            continue;
-        }
-
         let words: Vec<&str> = line.split(" ").collect();
         if words.len() != 2 {
             continue;

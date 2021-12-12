@@ -38,9 +38,6 @@ fn part2(numbers: &Vec<i32>) -> i32 {
 pub fn day1(lines: &Vec<String>) -> (i32, i32) {
     let mut numbers: Vec<i32> = vec!();
     for line in lines {
-        if line.trim().is_empty() {
-            continue;
-        }
         numbers.push(line.parse().unwrap());
     }
 
