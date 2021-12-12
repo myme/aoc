@@ -1,4 +1,6 @@
-use std::fs;
+use std::{fmt::Display, fs};
+
+use ansi_term::Color::{Green, Red};
 
 mod day1;
 mod day2;
@@ -17,6 +19,14 @@ fn read_lines(fname: &str) -> Vec<String> {
     lines
 }
 
+fn verify_answer<T: PartialEq + Display>(label: &str, actual: &T, expected: &T) -> String {
+    if actual == expected {
+        format!("{} {}: {}", Green.paint("✔"), label, actual)
+    } else {
+        format!("{} {}: {} (expected: {})", Red.paint("❌"), label, actual, expected)
+    }
+}
+
 fn run_day(
     day: u32,
     in_file: &str,
@@ -25,11 +35,9 @@ fn run_day(
 ) {
     let input = read_lines(in_file);
     let (part1, part2) = func(&input);
-    assert_eq!(part1, answer.0);
-    assert_eq!(part2, answer.1);
     println!("Day {}", day);
-    println!("  Part 1: {}", part1);
-    println!("  Part 2: {}", part2);
+    println!("  {}", verify_answer("Part 1", &part1, &answer.0));
+    println!("  {}", verify_answer("Part 2", &part2, &answer.1));
 }
 
 fn main() {
