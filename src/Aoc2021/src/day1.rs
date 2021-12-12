@@ -1,4 +1,4 @@
-use std::{collections::VecDeque, fs};
+use std::collections::VecDeque;
 
 fn part1(numbers: &Vec<i32>) -> i32 {
     let mut larger: i32 = 0;
@@ -35,12 +35,9 @@ fn part2(numbers: &Vec<i32>) -> i32 {
     larger
 }
 
-pub fn day1() -> (i32, i32) {
-    let input = fs::read_to_string("./input/day1.txt")
-        .expect("Unable to read input file");
-
+pub fn day1(lines: &Vec<String>) -> (i32, i32) {
     let mut numbers: Vec<i32> = vec!();
-    for line in input.split("\n") {
+    for line in lines {
         if line.trim().is_empty() {
             continue;
         }

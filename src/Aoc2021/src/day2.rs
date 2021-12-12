@@ -1,5 +1,3 @@
-use std::fs;
-
 enum Direction {
     Forward,
     Down,
@@ -45,12 +43,9 @@ fn part2(motions: &Vec<Motion>) -> i32 {
     depth * position
 }
 
-pub fn day2() -> (i32, i32) {
-    let input = fs::read_to_string("./input/day2.txt")
-        .expect("Unable to read input file");
-
+pub fn day2(lines: &Vec<String>) -> (i32, i32) {
     let mut motions: Vec<Motion> = vec!();
-    for line in input.split("\n") {
+    for line in lines {
         if line.trim().is_empty() {
             continue;
         }
