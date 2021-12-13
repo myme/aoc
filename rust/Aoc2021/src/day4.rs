@@ -4,8 +4,11 @@ struct Board {
 }
 
 fn parse_boards(lines: &[String]) -> Vec<Board> {
-    let mut boards = vec!();
-    let mut board: Board = Board { won: false, cells: [(0, false); 25] };
+    let mut boards = vec![];
+    let mut board = Board {
+        won: false,
+        cells: [(0, false); 25],
+    };
 
     for (line_idx, line) in lines.iter().enumerate() {
         for (word_idx, word) in line.split(' ').filter(|w| !w.is_empty()).enumerate() {
@@ -14,7 +17,10 @@ fn parse_boards(lines: &[String]) -> Vec<Board> {
 
             if idx == 24 {
                 boards.push(board);
-                board = Board { won: false, cells: [(0, false); 25] };
+                board = Board {
+                    won: false,
+                    cells: [(0, false); 25],
+                };
             }
         }
     }
