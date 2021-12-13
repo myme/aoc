@@ -1,11 +1,10 @@
 fn from_binary_string(input: &str) -> i32 {
-   i32::from_str_radix(input, 2)
-        .expect(&format!("Unable to parse binary number: {}", input))
+    i32::from_str_radix(input, 2).expect(&format!("Unable to parse binary number: {}", input))
 }
 
 fn get_bit_frequencies(lines: &[String]) -> Vec<i32> {
     if lines.is_empty() {
-        return vec!();
+        return vec![];
     }
 
     let length = lines[0].len();
@@ -106,9 +105,15 @@ fn print_trie(trie: &BinTrie, prefix: &str) {
     }
 }
 
-enum Direction { Left, Right }
+enum Direction {
+    Left,
+    Right,
+}
 
-fn find_node_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String where F: Fn(&BinTrie) -> Direction {
+fn find_node_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String
+where
+    F: Fn(&BinTrie) -> Direction,
+{
     match pred(trie) {
         Direction::Left => {
             if let Some(b) = &trie.zero {
@@ -118,7 +123,7 @@ fn find_node_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String where F: F
             } else {
                 String::from(prefix)
             }
-        },
+        }
         Direction::Right => {
             if let Some(b) = &trie.one {
                 find_node_path(b, &format!("{}1", prefix), pred)
@@ -127,11 +132,14 @@ fn find_node_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String where F: F
             } else {
                 String::from(prefix)
             }
-        },
+        }
     }
 }
 
-fn find_node_value_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String where F: Fn(i32, i32) -> Direction {
+fn find_node_value_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String
+where
+    F: Fn(i32, i32) -> Direction,
+{
     find_node_path(trie, prefix, |branch| {
         let zeroes = branch.zero.as_ref().map_or(0, |branch| branch.count);
         let ones = branch.one.as_ref().map_or(0, |branch| branch.count);
@@ -140,10 +148,20 @@ fn find_node_value_path<F>(trie: &BinTrie, prefix: &str, pred: F) -> String wher
 }
 
 fn part2(trie: &BinTrie) -> i32 {
-    let o2_gen_rating_str = find_node_value_path(
-        &trie, "", |zero, one| if zero > one { Direction::Left } else { Direction::Right });
-    let co2_scrub_rating_str = find_node_value_path(
-        &trie, "", |zero, one| if zero <= one { Direction::Left } else { Direction::Right });
+    let o2_gen_rating_str = find_node_value_path(&trie, "", |zero, one| {
+        if zero > one {
+            Direction::Left
+        } else {
+            Direction::Right
+        }
+    });
+    let co2_scrub_rating_str = find_node_value_path(&trie, "", |zero, one| {
+        if zero <= one {
+            Direction::Left
+        } else {
+            Direction::Right
+        }
+    });
 
     let o2_gen_rating = from_binary_string(&o2_gen_rating_str);
     let co2_scrub_rating = from_binary_string(&co2_scrub_rating_str);
