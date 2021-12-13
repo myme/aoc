@@ -45,5 +45,5 @@ fn main() {
     run_day(1, "./input/day1.txt", day1::day1, (1832, 1858));
     run_day(2, "./input/day2.txt", day2::day2, (2117664, 2073416724));
     run_day(3, "./input/day3.txt", day3::day3, (4118544, 3832770));
-    run_day(4, "./input/day4.txt", day4::day4, (27027, 0));
+    run_day(4, "./input/day4.txt", day4::day4, (27027, 36975));
 }
