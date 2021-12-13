@@ -24,7 +24,7 @@ fn verify_answer<T: PartialEq + Display>(label: &str, actual: &T, expected: &T) 
     if actual == expected {
         format!("{} {}: {}", Green.paint("✔"), label, actual)
     } else {
-        format!("{} {}: {} (expected: {})", Red.paint("❌"), label, actual, expected)
+        format!("{} {}: {} (expected: {})", Red.paint("✘"), label, actual, expected)
     }
 }
 
