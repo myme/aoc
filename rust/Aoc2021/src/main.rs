@@ -42,10 +42,26 @@ fn run_day(
     println!("  {}", verify_answer("Part 2", &part2, &answer.1));
 }
 
+type Handler = fn(&Vec<String>) -> (i32, i32);
+
 fn main() {
-    run_day(1, "./input/day1-input.txt", day1::day1, (1832, 1858));
-    run_day(2, "./input/day2-input.txt", day2::day2, (2117664, 2073416724));
-    run_day(3, "./input/day3-input.txt", day3::day3, (4118544, 3832770));
-    run_day(4, "./input/day4-input.txt", day4::day4, (27027, 36975));
-    run_day(5, "./input/day5-input.txt", day5::day5, (8350, 19374));
+    let days: Vec<u32> = if std::env::args().len() > 1 {
+        std::env::args().skip(1).map(|v| v.parse().unwrap()).collect()
+    } else {
+        Vec::from_iter(1..=24)
+    };
+
+    let solutions: Vec<(u32, &str, Handler, (i32, i32))> = vec!(
+        (1, "./input/day1-input.txt", day1::day1, (1832, 1858)),
+        (2, "./input/day2-input.txt", day2::day2, (2117664, 2073416724)),
+        (3, "./input/day3-input.txt", day3::day3, (4118544, 3832770)),
+        (4, "./input/day4-input.txt", day4::day4, (27027, 36975)),
+        (5, "./input/day5-input.txt", day5::day5, (8350, 19374)),
+    );
+
+    for (day, input, func, answer) in solutions {
+        if days.contains(&day) {
+            run_day(day, input, func, answer);
+        }
+    }
 }
