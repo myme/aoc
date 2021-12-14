@@ -72,7 +72,7 @@ fn build_map(lines: &Vec<Line>, with_diagonal: bool) -> HashMap<Point, i32> {
     map
 }
 
-pub fn day5(input: &Vec<String>) -> (i32, i32) {
+pub fn day5(input: &Vec<String>) -> (i64, i64) {
     let lines = parse_lines(input);
 
     let map = build_map(&lines, false);

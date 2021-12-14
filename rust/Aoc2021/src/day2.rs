@@ -43,7 +43,7 @@ fn part2(motions: &Vec<Motion>) -> i32 {
     depth * position
 }
 
-pub fn day2(lines: &Vec<String>) -> (i32, i32) {
+pub fn day2(lines: &Vec<String>) -> (i64, i64) {
     let mut motions: Vec<Motion> = vec!();
     for line in lines {
         let words: Vec<&str> = line.split(" ").collect();
@@ -64,5 +64,5 @@ pub fn day2(lines: &Vec<String>) -> (i32, i32) {
         })
     }
 
-    (part1(&motions), part2(&motions))
+    (part1(&motions).into(), part2(&motions).into())
 }

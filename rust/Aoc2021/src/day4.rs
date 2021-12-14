@@ -87,7 +87,7 @@ fn play_bingo(boards: &mut Vec<Board>, draws: &Vec<i32>, last_winner: bool) -> i
     0
 }
 
-pub fn day4(lines: &Vec<String>) -> (i32, i32) {
+pub fn day4(lines: &Vec<String>) -> (i64, i64) {
     let draws: Vec<i32> = lines[0].split(',').map(|v| v.parse().unwrap()).collect();
 
     let mut boards = parse_boards(&lines[1..]);
@@ -96,5 +96,5 @@ pub fn day4(lines: &Vec<String>) -> (i32, i32) {
     let mut boards = parse_boards(&lines[1..]);
     let part2 = play_bingo(&mut boards, &draws, true);
 
-    (part1, part2)
+    (part1.into(), part2.into())
 }

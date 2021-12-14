@@ -169,9 +169,9 @@ fn part2(trie: &BinTrie) -> i32 {
     o2_gen_rating * co2_scrub_rating
 }
 
-pub fn day3(lines: &Vec<String>) -> (i32, i32) {
+pub fn day3(lines: &Vec<String>) -> (i64, i64) {
     let trie = build_trie(lines);
     // print_trie(&trie, "");
 
-    (part1(lines), part2(&trie))
+    (part1(lines).into(), part2(&trie).into())
 }

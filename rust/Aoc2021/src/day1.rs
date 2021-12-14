@@ -35,11 +35,11 @@ fn part2(numbers: &Vec<i32>) -> i32 {
     larger
 }
 
-pub fn day1(lines: &Vec<String>) -> (i32, i32) {
+pub fn day1(lines: &Vec<String>) -> (i64, i64) {
     let mut numbers: Vec<i32> = vec!();
     for line in lines {
         numbers.push(line.parse().unwrap());
     }
 
-    (part1(&numbers), part2(&numbers))
+    (part1(&numbers).into(), part2(&numbers).into())
 }
