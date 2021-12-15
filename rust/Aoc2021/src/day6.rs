@@ -18,7 +18,7 @@ pub fn breeding_program(lines: &Vec<String>, days: u32) -> Fish {
                 new_fish[6] = fish[fish_cycle];
                 new_fish[8] = *count;
             } else {
-                new_fish[fish_cycle - 1] += fish[fish_cycle];
+                new_fish[fish_cycle - 1] += *count;
             }
         }
 
