@@ -1,4 +1,4 @@
-use std::{fmt::Display, fs};
+use std::{fmt::Display, fs, process::exit};
 
 use ansi_term::Color::{Green, Red};
 
@@ -45,12 +45,50 @@ fn run_day(day: u32, in_file: &str, func: Handler, answer: (i64, i64)) {
     println!("  {}", verify_answer("Part 2", &part2, &answer.1));
 }
 
+struct Args {
+    help: bool,
+    small: bool,
+    filter_days: Vec<u32>,
+}
+
+fn parse_args() -> Args {
+    let mut args = Args {
+        help: false,
+        small: false,
+        filter_days: vec![],
+    };
+
+    for arg in std::env::args().skip(1) {
+        if arg == "-h" || arg == "--help" {
+            args.help = true;
+        } else if arg == "-s" || arg == "--small" {
+            args.small = true;
+        } else {
+            match arg.parse::<u32>() {
+                Ok(d) => args.filter_days.push(d),
+                Err(_) => {
+                    usage();
+                    println!("Invalid argument: {}", arg);
+                    exit(1);
+                },
+            }
+        }
+    }
+
+    args
+}
+
+fn usage() {
+    println!("usage: [-s|--small] [days...]");
+}
+
 fn main() {
-    let with_small = false;
-    let filter_days: Vec<u32> = std::env::args()
-        .skip(1)
-        .map(|v| v.parse().unwrap())
-        .collect();
+    let Args { help, small, filter_days } = parse_args();
+
+    if help {
+        usage();
+        exit(0);
+    }
 
     let solutions: Vec<(Handler, Answer)> = vec!(
         (day1::day1, Answer {
@@ -89,8 +127,8 @@ fn main() {
             continue;
         }
 
-        let input = if with_small { "small" } else { "input" };
-        let answer = if with_small { answer.small } else { answer.input };
+        let input = if small { "small" } else { "input" };
+        let answer = if small { answer.small } else { answer.input };
         let input = format!("./input/day{}-{}.txt", day, input);
 
         run_day(day, &input, *func, answer);
