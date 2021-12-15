@@ -9,6 +9,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 fn read_lines(fname: &str) -> Vec<String> {
     let input = fs::read_to_string(fname)
@@ -119,6 +120,10 @@ fn main() {
             small: (37, 168),
             input: (344735, 96798233),
         }),
+        (day8::day8, Answer {
+            small: (0, 0),
+            input: (0, 0),
+        })
     );
 
     for (day, (func, answer)) in solutions.iter().enumerate() {
