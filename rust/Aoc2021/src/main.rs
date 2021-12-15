@@ -8,6 +8,7 @@ mod day3;
 mod day4;
 mod day5;
 mod day6;
+mod day7;
 
 fn read_lines(fname: &str) -> Vec<String> {
     let input = fs::read_to_string(fname)
@@ -54,6 +55,7 @@ fn main() {
         (4, "./input/day4-input.txt", day4::day4, (27027, 36975)),
         (5, "./input/day5-input.txt", day5::day5, (8350, 19374)),
         (6, "./input/day6-input.txt", day6::day6, (353274, 1609314870967)),
+        (7, "./input/day7-input.txt", day7::day7, (0, 0)),
     );
 
     for (day, input, func, answer) in solutions {
