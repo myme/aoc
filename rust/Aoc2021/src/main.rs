@@ -31,6 +31,10 @@ fn verify_answer<T: PartialEq + Display>(label: &str, actual: &T, expected: &T) 
     }
 }
 
+struct Answer {
+    small: (i64, i64),
+    input: (i64, i64),
+}
 type Handler = fn(&Vec<String>) -> (i64, i64);
 
 fn run_day(day: u32, in_file: &str, func: Handler, answer: (i64, i64)) {
@@ -42,25 +46,50 @@ fn run_day(day: u32, in_file: &str, func: Handler, answer: (i64, i64)) {
 }
 
 fn main() {
+    let with_small = false;
     let days: Vec<u32> = if std::env::args().len() > 1 {
         std::env::args().skip(1).map(|v| v.parse().unwrap()).collect()
     } else {
         Vec::from_iter(1..=24)
     };
 
-    let solutions: Vec<(u32, &str, Handler, (i64, i64))> = vec!(
-        (1, "./input/day1-input.txt", day1::day1, (1832, 1858)),
-        (2, "./input/day2-input.txt", day2::day2, (2117664, 2073416724)),
-        (3, "./input/day3-input.txt", day3::day3, (4118544, 3832770)),
-        (4, "./input/day4-input.txt", day4::day4, (27027, 36975)),
-        (5, "./input/day5-input.txt", day5::day5, (8350, 19374)),
-        (6, "./input/day6-input.txt", day6::day6, (353274, 1609314870967)),
-        (7, "./input/day7-input.txt", day7::day7, (0, 0)),
+    let solutions: Vec<(u32, Handler, Answer)> = vec!(
+        (1, day1::day1, Answer {
+            small: (7, 5),
+            input: (1832, 1858),
+        }),
+        (2, day2::day2, Answer {
+            small: (150, 900),
+            input: (2117664, 2073416724),
+        }),
+        (3, day3::day3, Answer {
+            small: (198, 230),
+            input: (4118544, 3832770),
+        }),
+        (4, day4::day4, Answer {
+            small: (4512, 1924),
+            input: (27027, 36975),
+        }),
+        (5, day5::day5, Answer {
+            small: (5, 12),
+            input: (8350, 19374),
+        }),
+        (6, day6::day6, Answer {
+            small: (5934, 26984457539),
+            input: (353274, 1609314870967),
+        }),
+        (7, day7::day7, Answer {
+            small: (0, 0),
+            input: (0, 0),
+        }),
     );
 
-    for (day, input, func, answer) in solutions {
+    for (day, func, answer) in solutions {
+        let input = if with_small { "small" } else { "input" };
+        let answer = if with_small { answer.small } else { answer.input };
         if days.contains(&day) {
-            run_day(day, input, func, answer);
+            let input = format!("./input/day{}-{}.txt", day, input);
+            run_day(day, &input, func, answer);
         }
     }
 }
