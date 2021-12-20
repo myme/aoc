@@ -121,8 +121,8 @@ fn main() {
             input: (344735, 96798233),
         }),
         (day8::day8, Answer {
-            small: (0, 0),
-            input: (0, 0),
+            small: (26, 61229),
+            input: (344, 1048410),
         })
     );
 
