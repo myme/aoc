@@ -57,17 +57,17 @@ fn fix_incomplete_line(input: &String) -> Option<i64> {
         }
     }
 
-    if !chunk_stack.is_empty() {
-        let mut sum = 0_i64;
-
-        while let Some(closing) = chunk_stack.pop_front() {
-            sum = sum * 5 + scoring_table.get(&closing)?;
-        }
-
-        return Some(sum);
+    if chunk_stack.is_empty() {
+        return None
     }
 
-    None
+    let mut sum = 0_i64;
+
+    while let Some(closing) = chunk_stack.pop_front() {
+        sum = sum * 5 + scoring_table.get(&closing)?;
+    }
+
+    return Some(sum);
 }
 
 pub fn day10(lines: &Vec<String>) -> (i64, i64) {
