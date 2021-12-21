@@ -127,7 +127,7 @@ fn main() {
         }),
         (day9::day9, Answer {
             small: (15, 1134),
-            input: (491, 0),
+            input: (491, 1075536),
         })
     );
 
