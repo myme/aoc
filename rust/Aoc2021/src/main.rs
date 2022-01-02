@@ -141,8 +141,8 @@ fn main() {
             input: (1601, 368),
         }),
         (day12::day12, Answer {
-            small: (10, 0),
-            input: (5157, 0),
+            small: (10, 36),
+            input: (5157, 144309),
         }),
     );
 
