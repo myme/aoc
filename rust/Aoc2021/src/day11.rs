@@ -51,12 +51,19 @@ fn neighbor_cells(row: usize, col: usize, (rows, cols): Coord) -> Vec<Coord> {
     neighbors
 }
 
-fn run_simulation(steps: u32, mut state: State) -> i64 {
+enum Part {
+    Part1,
+    Part2,
+}
+
+fn run_simulation(part: Part, mut state: State) -> i64 {
+    let mut step = 0;
     let mut total_flashes = 0_i64;
     let rows = state.len();
     let cols = state[0].len();
 
-    for _ in 0..steps {
+    loop {
+        let mut flashes_in_step = 0;
         let mut flashes: VecDeque<(usize, usize)> = VecDeque::new();
 
         for row in 0..state.len() {
@@ -74,7 +81,7 @@ fn run_simulation(steps: u32, mut state: State) -> i64 {
             }
 
             state[row][col] = 0;
-            total_flashes += 1;
+            flashes_in_step += 1;
 
             for (r, c) in neighbor_cells(row, col, (rows, cols)) {
                 if state[r][c] == 0 {
@@ -88,13 +95,20 @@ fn run_simulation(steps: u32, mut state: State) -> i64 {
                 }
             }
         }
-    }
 
-    total_flashes
+        total_flashes += flashes_in_step;
+        step += 1;
+
+        match part {
+            Part::Part1 => if step == 100 { return total_flashes },
+            Part::Part2 => if flashes_in_step == 100 { return step },
+        }
+    }
 }
 
 pub fn day11(lines: &Vec<String>) -> (i64, i64) {
-    let part1 = run_simulation(100, parse_octopuses(lines));
+    let part1 = run_simulation(Part::Part1, parse_octopuses(lines));
+    let part2 = run_simulation(Part::Part2, parse_octopuses(lines));
 
-    (part1, 0)
+    (part1, part2)
 }
