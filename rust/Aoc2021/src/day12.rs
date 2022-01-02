@@ -44,12 +44,9 @@ fn build_graph(lines: &Vec<String>) -> Option<Graph> {
     Some(graph)
 }
 
-enum Part {
-    Part1,
-    Part2,
-}
+enum Part { Part1, Part2 }
 
-fn count_paths_helper(node: &str, graph: &Graph, path: &mut Path, part: &Part) -> i64 {
+fn count_paths(node: &str, graph: &Graph, path: &mut Path, part: &Part) -> i64 {
     if node == "end" {
         return 1;
     }
@@ -80,21 +77,17 @@ fn count_paths_helper(node: &str, graph: &Graph, path: &mut Path, part: &Part) -
         let mut path = path.clone();
         path.has_double_small = has_double_small;
 
-        paths += count_paths_helper(&neighbor, &graph, &mut path, part);
+        paths += count_paths(&neighbor, &graph, &mut path, part);
     }
 
     paths
 }
 
-fn count_paths(lines: &Vec<String>, part: &Part) -> i64 {
+pub fn day12(lines: &Vec<String>) -> (i64, i64) {
     let graph = build_graph(lines).unwrap();
 
-    count_paths_helper("start", &graph, &mut Path::new(), part)
-}
-
-pub fn day12(lines: &Vec<String>) -> (i64, i64) {
-    let part1 = count_paths(lines, &Part::Part1);
-    let part2 = count_paths(lines, &Part::Part2);
+    let part1 = count_paths("start", &graph, &mut Path::new(), &Part::Part1);
+    let part2 = count_paths("start", &graph, &mut Path::new(), &Part::Part2);
 
     (part1, part2)
 }
