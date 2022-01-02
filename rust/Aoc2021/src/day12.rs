@@ -5,8 +5,25 @@ type Graph = HashMap<String, NodeSet>;
 
 #[derive(Clone)]
 struct Path {
-    path: Vec<String>,
+    nodes: NodeSet,
     has_double_small: bool,
+}
+
+impl Path {
+    fn new() -> Path {
+        Path {
+            nodes: NodeSet::new(),
+            has_double_small: false,
+        }
+    }
+
+    fn contains(&self, part: &String) -> bool {
+        self.nodes.contains(part)
+    }
+
+    fn add(&mut self, part: &str) {
+        self.nodes.insert(String::from(part));
+    }
 }
 
 fn build_graph(lines: &Vec<String>) -> Option<Graph> {
@@ -32,40 +49,38 @@ enum Part {
     Part2,
 }
 
-fn find_paths(node: &str, graph: &Graph, path: &Path, part: &Part) -> Vec<Path> {
-    let mut paths = Vec::new();
-
+fn count_paths_helper(node: &str, graph: &Graph, path: &mut Path, part: &Part) -> i64 {
     if node == "end" {
-        paths.push(path.clone());
-        return paths;
+        return 1;
     }
+
+    let mut paths = 0;
+    path.add(node);
 
     for neighbor in &graph[node] {
         if neighbor == "start" {
             continue;
         }
 
-        let mut path = path.clone();
-
+        let mut has_double_small = path.has_double_small;
         let is_small = neighbor.chars().all(|c| c.is_lowercase());
-        if is_small && path.path.contains(&neighbor) {
+        if is_small && path.contains(&neighbor) {
             match part {
                 &Part::Part1 => continue,
                 &Part::Part2 => {
-                    if path.has_double_small {
+                    if has_double_small {
                         continue;
                     } else {
-                        path.has_double_small = true;
+                        has_double_small = true;
                     }
                 },
             }
         }
 
-        path.path.push(String::from(neighbor));
+        let mut path = path.clone();
+        path.has_double_small = has_double_small;
 
-        for sub_path in find_paths(&neighbor, &graph, &path, part) {
-            paths.push(sub_path);
-        }
+        paths += count_paths_helper(&neighbor, &graph, &mut path, part);
     }
 
     paths
@@ -74,14 +89,7 @@ fn find_paths(node: &str, graph: &Graph, path: &Path, part: &Part) -> Vec<Path> 
 fn count_paths(lines: &Vec<String>, part: &Part) -> i64 {
     let graph = build_graph(lines).unwrap();
 
-    let start_path = Path {
-        path: vec![String::from("start")],
-        has_double_small: false,
-    };
-
-    let paths = find_paths("start", &graph, &start_path, part);
-
-    paths.len().try_into().unwrap()
+    count_paths_helper("start", &graph, &mut Path::new(), part)
 }
 
 pub fn day12(lines: &Vec<String>) -> (i64, i64) {
