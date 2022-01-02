@@ -14,6 +14,7 @@ mod day9;
 mod day10;
 mod day11;
 mod day12;
+mod day13;
 
 fn read_lines(fname: &str) -> Vec<String> {
     let input = fs::read_to_string(fname)
@@ -143,6 +144,10 @@ fn main() {
         (day12::day12, Answer {
             small: (10, 36),
             input: (5157, 144309),
+        }),
+        (day13::day13, Answer {
+            small: (0, 0),
+            input: (0, 0),
         }),
     );
 
