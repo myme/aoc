@@ -2,15 +2,15 @@ use std::{fmt::Display, fs, process::exit};
 
 use ansi_term::Color::{Green, Red};
 
-mod day1;
-mod day2;
-mod day3;
-mod day4;
-mod day5;
-mod day6;
-mod day7;
-mod day8;
-mod day9;
+mod day01;
+mod day02;
+mod day03;
+mod day04;
+mod day05;
+mod day06;
+mod day07;
+mod day08;
+mod day09;
 mod day10;
 mod day11;
 mod day12;
@@ -46,7 +46,7 @@ type Handler = fn(&Vec<String>) -> (i64, i64);
 fn run_day(day: u32, in_file: &str, func: Handler, answer: (i64, i64)) {
     let input = read_lines(in_file);
     let (part1, part2) = func(&input);
-    println!("Day {}", day);
+    println!("Day {:02}", day);
     println!("  {}", verify_answer("Part 1", &part1, &answer.0));
     println!("  {}", verify_answer("Part 2", &part2, &answer.1));
 }
@@ -97,39 +97,39 @@ fn main() {
     }
 
     let solutions: Vec<(Handler, Answer)> = vec!(
-        (day1::day1, Answer {
+        (day01::day1, Answer {
             small: (7, 5),
             input: (1832, 1858),
         }),
-        (day2::day2, Answer {
+        (day02::day2, Answer {
             small: (150, 900),
             input: (2117664, 2073416724),
         }),
-        (day3::day3, Answer {
+        (day03::day3, Answer {
             small: (198, 230),
             input: (4118544, 3832770),
         }),
-        (day4::day4, Answer {
+        (day04::day4, Answer {
             small: (4512, 1924),
             input: (27027, 36975),
         }),
-        (day5::day5, Answer {
+        (day05::day5, Answer {
             small: (5, 12),
             input: (8350, 19374),
         }),
-        (day6::day6, Answer {
+        (day06::day6, Answer {
             small: (5934, 26984457539),
             input: (353274, 1609314870967),
         }),
-        (day7::day7, Answer {
+        (day07::day7, Answer {
             small: (37, 168),
             input: (344735, 96798233),
         }),
-        (day8::day8, Answer {
+        (day08::day8, Answer {
             small: (26, 61229),
             input: (344, 1048410),
         }),
-        (day9::day9, Answer {
+        (day09::day9, Answer {
             small: (15, 1134),
             input: (491, 1075536),
         }),
@@ -159,7 +159,7 @@ fn main() {
 
         let input = if small { "small" } else { "input" };
         let answer = if small { answer.small } else { answer.input };
-        let input = format!("./input/day{}-{}.txt", day, input);
+        let input = format!("./input/day{:02}-{}.txt", day, input);
 
         run_day(day, &input, *func, answer);
     }
