@@ -1,5 +1,7 @@
 use std::collections::VecDeque;
 
+use crate::utils;
+
 type Coord = (usize, usize);
 type State = Vec<Vec<u8>>;
 
@@ -106,7 +108,8 @@ fn run_simulation(part: Part, mut state: State) -> i64 {
     }
 }
 
-pub fn day11(lines: &Vec<String>) -> (i64, i64) {
+pub fn day11(input: &str) -> (i64, i64) {
+    let lines = &utils::to_lines(input);
     let part1 = run_simulation(Part::Part1, parse_octopuses(lines));
     let part2 = run_simulation(Part::Part2, parse_octopuses(lines));
 

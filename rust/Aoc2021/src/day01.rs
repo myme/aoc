@@ -1,5 +1,7 @@
 use std::collections::VecDeque;
 
+use crate::utils;
+
 fn part1(numbers: &Vec<i32>) -> i32 {
     let mut larger: i32 = 0;
     let mut prev: Option<i32> = None;
@@ -35,9 +37,9 @@ fn part2(numbers: &Vec<i32>) -> i32 {
     larger
 }
 
-pub fn day1(lines: &Vec<String>) -> (i64, i64) {
+pub fn day1(input: &str) -> (i64, i64) {
     let mut numbers: Vec<i32> = vec!();
-    for line in lines {
+    for line in utils::to_lines(input) {
         numbers.push(line.parse().unwrap());
     }
 

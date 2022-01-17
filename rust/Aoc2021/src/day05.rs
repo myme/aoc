@@ -1,4 +1,6 @@
-use std::{collections::{HashMap, VecDeque}};
+use std::collections::{HashMap, VecDeque};
+
+use crate::utils;
 
 type Point = (i32, i32);
 
@@ -72,8 +74,8 @@ fn build_map(lines: &Vec<Line>, with_diagonal: bool) -> HashMap<Point, i32> {
     map
 }
 
-pub fn day5(input: &Vec<String>) -> (i64, i64) {
-    let lines = parse_lines(input);
+pub fn day5(input: &str) -> (i64, i64) {
+    let lines = parse_lines(&utils::to_lines(input));
 
     let map = build_map(&lines, false);
     let part1 = map.values().filter(|&v| *v >= 2).count();

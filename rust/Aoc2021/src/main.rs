@@ -2,6 +2,7 @@ use std::{fmt::Display, fs, process::exit};
 
 use ansi_term::Color::{Green, Red};
 
+mod utils;
 mod day01;
 mod day02;
 mod day03;
@@ -16,17 +17,10 @@ mod day11;
 mod day12;
 mod day13;
 
-fn read_lines(fname: &str) -> Vec<String> {
+fn read_file(fname: &str) -> String {
     let input = fs::read_to_string(fname)
         .expect(&format!("Unable to read input file: {}", fname));
-    let mut lines = vec!();
-    for line in input.split("\n") {
-        if line.trim().is_empty() {
-            continue;
-        }
-        lines.push(String::from(line));
-    }
-    lines
+    input
 }
 
 fn verify_answer<T: PartialEq + Display>(label: &str, actual: &T, expected: &T) -> String {
@@ -41,10 +35,10 @@ struct Answer {
     small: (i64, i64),
     input: (i64, i64),
 }
-type Handler = fn(&Vec<String>) -> (i64, i64);
+type Handler = fn(&str) -> (i64, i64);
 
 fn run_day(day: u32, in_file: &str, func: Handler, answer: (i64, i64)) {
-    let input = read_lines(in_file);
+    let input = read_file(in_file);
     let (part1, part2) = func(&input);
     println!("Day {:02}", day);
     println!("  {}", verify_answer("Part 1", &part1, &answer.0));
@@ -146,7 +140,7 @@ fn main() {
             input: (5157, 144309),
         }),
         (day13::day13, Answer {
-            small: (0, 0),
+            small: (17, 0),
             input: (0, 0),
         }),
     );

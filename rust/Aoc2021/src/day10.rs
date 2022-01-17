@@ -1,5 +1,7 @@
 use std::collections::{HashMap, VecDeque};
 
+use crate::utils;
+
 fn find_corrupted_score(input: &String) -> Option<i64> {
     let chunk_chars: HashMap<char, char> = HashMap::from([
         ('(', ')'),
@@ -70,7 +72,8 @@ fn fix_incomplete_line(input: &String) -> Option<i64> {
     return Some(sum);
 }
 
-pub fn day10(lines: &Vec<String>) -> (i64, i64) {
+pub fn day10(input: &str) -> (i64, i64) {
+    let lines = utils::to_lines(input);
     let part1 = lines.iter().map(find_corrupted_score).flatten().sum();
 
     let mut fixed: Vec<i64> = lines.iter().filter_map(fix_incomplete_line).collect();

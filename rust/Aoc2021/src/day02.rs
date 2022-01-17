@@ -1,3 +1,5 @@
+use crate::utils;
+
 enum Direction {
     Forward,
     Down,
@@ -43,9 +45,9 @@ fn part2(motions: &Vec<Motion>) -> i32 {
     depth * position
 }
 
-pub fn day2(lines: &Vec<String>) -> (i64, i64) {
+pub fn day2(input: &str) -> (i64, i64) {
     let mut motions: Vec<Motion> = vec!();
-    for line in lines {
+    for line in utils::to_lines(input) {
         let words: Vec<&str> = line.split(" ").collect();
         if words.len() != 2 {
             continue;

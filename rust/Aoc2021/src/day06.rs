@@ -1,3 +1,5 @@
+use crate::utils;
+
 type Fish = [i64; 9];
 
 pub fn breeding_program(lines: &Vec<String>, days: u32) -> Fish {
@@ -28,7 +30,8 @@ pub fn breeding_program(lines: &Vec<String>, days: u32) -> Fish {
     fish
 }
 
-pub fn day6(lines: &Vec<String>) -> (i64, i64) {
+pub fn day6(input: &str) -> (i64, i64) {
+    let lines = utils::to_lines(input);
     let part1 = breeding_program(&lines, 80).iter().sum();
     let part2 = breeding_program(&lines, 256).iter().sum();
 

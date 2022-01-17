@@ -1,3 +1,5 @@
+use crate::utils;
+
 struct Board {
     won: bool,
     cells: [(i32, bool); 25],
@@ -87,7 +89,8 @@ fn play_bingo(boards: &mut Vec<Board>, draws: &Vec<i32>, last_winner: bool) -> i
     0
 }
 
-pub fn day4(lines: &Vec<String>) -> (i64, i64) {
+pub fn day4(input: &str) -> (i64, i64) {
+    let lines = utils::to_lines(input);
     let draws: Vec<i32> = lines[0].split(',').map(|v| v.parse().unwrap()).collect();
 
     let mut boards = parse_boards(&lines[1..]);

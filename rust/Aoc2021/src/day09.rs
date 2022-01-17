@@ -1,5 +1,7 @@
 use std::collections::{HashSet, VecDeque};
 
+use crate::utils;
+
 struct Grid {
     rows: Vec<Vec<u8>>,
     width: usize,
@@ -99,8 +101,8 @@ fn find_basins(grid: &Grid, points: &Vec<Point>) -> Basins {
     basins
 }
 
-pub fn day9(lines: &Vec<String>) -> (i64, i64) {
-    let grid = parse_grid(lines);
+pub fn day9(input: &str) -> (i64, i64) {
+    let grid = parse_grid(&utils::to_lines(input));
     let low_points = find_low_points(&grid);
 
     let part1 = low_points.iter().map(|v| i64::from(v.height) + 1).sum();

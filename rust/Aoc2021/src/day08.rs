@@ -1,5 +1,7 @@
 use std::collections::{HashMap, HashSet};
 
+use crate::utils;
+
 fn count_unique_digits(lines: &Vec<String>) -> i64 {
     let mut sum = 0;
 
@@ -83,8 +85,9 @@ fn decode_and_compute_number(line: &String) -> Option<i64> {
     }).sum())
 }
 
-pub fn day8(lines: &Vec<String>) -> (i64, i64) {
-    let part1 = count_unique_digits(lines);
+pub fn day8(input: &str) -> (i64, i64) {
+    let lines = utils::to_lines(input);
+    let part1 = count_unique_digits(&lines);
     let part2 = lines.iter().map(decode_and_compute_number).flatten().sum();
 
     (part1, part2)

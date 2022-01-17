@@ -1,3 +1,5 @@
+use crate::utils;
+
 struct Input {
     min: i64,
     max: i64,
@@ -56,8 +58,8 @@ fn calculate_fuel_usage(input: &Input, cost_increase: bool) -> i64 {
     fuel
 }
 
-pub fn day7(lines: &Vec<String>) -> (i64, i64) {
-    let input  = parse_input(lines);
+pub fn day7(input: &str) -> (i64, i64) {
+    let input  = parse_input(&utils::to_lines(input));
 
     let part1 = calculate_fuel_usage(&input, false);
     let part2 = calculate_fuel_usage(&input, true);

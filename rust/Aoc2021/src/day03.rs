@@ -1,3 +1,5 @@
+use crate::utils;
+
 fn from_binary_string(input: &str) -> i32 {
     i32::from_str_radix(input, 2).expect(&format!("Unable to parse binary number: {}", input))
 }
@@ -169,9 +171,10 @@ fn part2(trie: &BinTrie) -> i32 {
     o2_gen_rating * co2_scrub_rating
 }
 
-pub fn day3(lines: &Vec<String>) -> (i64, i64) {
-    let trie = build_trie(lines);
+pub fn day3(input: &str) -> (i64, i64) {
+    let lines = utils::to_lines(input);
+    let trie = build_trie(&lines);
     // print_trie(&trie, "");
 
-    (part1(lines).into(), part2(&trie).into())
+    (part1(&lines).into(), part2(&trie).into())
 }

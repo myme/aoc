@@ -1,5 +1,7 @@
 use std::collections::{HashMap, HashSet};
 
+use crate::utils;
+
 type NodeSet = HashSet<String>;
 type Graph = HashMap<String, NodeSet>;
 
@@ -78,8 +80,8 @@ fn count_paths(node: &str, graph: &Graph, path: &mut Path, revisit: Revisit) -> 
     paths
 }
 
-pub fn day12(lines: &Vec<String>) -> (i64, i64) {
-    let graph = build_graph(lines);
+pub fn day12(input: &str) -> (i64, i64) {
+    let graph = build_graph(&utils::to_lines(input));
 
     let part1 = count_paths("start", &graph, &mut Path::new(), Revisit::OnlyBig);
     let part2 = count_paths("start", &graph, &mut Path::new(), Revisit::OneSmall);
