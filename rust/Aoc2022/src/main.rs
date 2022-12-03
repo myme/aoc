@@ -80,8 +80,8 @@ fn main() {
 
     let solutions: Vec<(Handler, Answer)> = vec!(
         (day01::day1, Answer {
-            small: (0, 0),
-            input: (0, 0),
+            small: (24000, 45000),
+            input: (67658, 200158),
         }),
     );
 

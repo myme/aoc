@@ -8,3 +8,11 @@ pub fn to_lines(input: &str) -> Vec<String> {
     }
     lines
 }
+
+pub fn to_lines_no_skip(input: &str) -> Vec<String> {
+    let mut lines = vec!();
+    for line in input.split("\n") {
+        lines.push(String::from(line));
+    }
+    lines
+}
