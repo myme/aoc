@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+  "rust/Aoc2021",
+  "rust/Aoc2022",
+]

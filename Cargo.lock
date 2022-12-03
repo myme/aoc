@@ -12,6 +12,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "aoc2021"
+version = "0.1.0"
+dependencies = [
+ "ansi_term",
+]
+
+[[package]]
 name = "aoc2022"
 version = "0.1.0"
 dependencies = [
