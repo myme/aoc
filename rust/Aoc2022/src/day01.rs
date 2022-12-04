@@ -8,7 +8,7 @@ fn part2(sums: &Vec<u64>) -> u64 {
 
 pub fn day1(input: &str) -> (u64, u64) {
     let mut sums = Vec::<u64>::new();
-    let mut sum: u64 = 0;
+    let mut sum = 0u64;
 
     for line in input.lines().map(|l| l.trim()) {
         if !line.is_empty() {

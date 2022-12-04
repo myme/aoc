@@ -51,7 +51,7 @@ fn score_win(hand: &Hand, other: &Hand) -> u64 {
 }
 
 fn part1(input: &str) -> Option<u64> {
-    let mut score: u64 = 0;
+    let mut score = 0u64;
 
     for line in input.lines() {
         let mut parts = line.split(" ").filter_map(parse_type);
@@ -64,7 +64,7 @@ fn part1(input: &str) -> Option<u64> {
 }
 
 fn part2(input: &str) -> Option<u64> {
-    let mut score: u64 = 0;
+    let mut score = 0u64;
 
     for line in input.lines() {
         let mut parts = line.split(" ");
