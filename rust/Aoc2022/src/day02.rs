@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 use crate::utils;
 
 #[derive(Clone, PartialEq, PartialOrd, Eq, Ord)]
@@ -21,41 +19,6 @@ fn parse_type(input: &str) -> Option<Hand> {
     }
 }
 
-fn score_hand(hand: &Hand) -> i64 {
-    match hand {
-        Hand::Rock => 1,
-        Hand::Paper => 2,
-        Hand::Scissors => 3,
-    }
-}
-
-fn score_win(hand: &Hand, other: &Hand) -> i64 {
-    let ord = match [hand, other] {
-        [Hand::Rock, Hand::Scissors] => Ordering::Greater,
-        [Hand::Scissors, Hand::Rock] => Ordering::Less,
-        _ => hand.cmp(&other),
-    };
-
-    match ord {
-        Ordering::Less => 0,
-        Ordering::Equal => 3,
-        Ordering::Greater => 6,
-    }
-}
-
-fn part1(input: &str) -> Option<i64> {
-    let mut score: i64 = 0;
-
-    for line in utils::to_lines(input) {
-        let mut parts = line.split(" ").filter_map(parse_type);
-        let opponent: Hand = parts.next()?;
-        let own: Hand = parts.next()?;
-        score += score_hand(&own) + score_win(&own, &opponent)
-    }
-
-    Some(score)
-}
-
 fn relation(hand: &Hand) -> (Hand, Hand) {
     match hand {
         Hand::Rock => (Hand::Paper, Hand::Scissors),
@@ -71,6 +34,35 @@ fn find_hand(hand: &Hand, result: &str) -> Option<Hand> {
         "Z" => Some(relation(hand).0),
         _ => None,
     }
+}
+
+fn score_hand(hand: &Hand) -> i64 {
+    match hand {
+        Hand::Rock => 1,
+        Hand::Paper => 2,
+        Hand::Scissors => 3,
+    }
+}
+
+fn score_win(hand: &Hand, other: &Hand) -> i64 {
+    match relation(hand) {
+        (lose, _) if *other == lose => 0,
+        (_, win) if *other == win => 6,
+        _ => 3,
+    }
+}
+
+fn part1(input: &str) -> Option<i64> {
+    let mut score: i64 = 0;
+
+    for line in utils::to_lines(input) {
+        let mut parts = line.split(" ").filter_map(parse_type);
+        let opponent: Hand = parts.next()?;
+        let own: Hand = parts.next()?;
+        score += score_hand(&own) + score_win(&own, &opponent)
+    }
+
+    Some(score)
 }
 
 fn part2(input: &str) -> Option<i64> {
