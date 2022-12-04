@@ -10,7 +10,11 @@ Paper, or Scissors using a hand shape. Then, a winner for that round is
 selected: Rock defeats Scissors, Scissors defeats Paper, and Paper defeats Rock.
 If both players choose the same shape, the round instead ends in a draw.
 
-** Part 1
+** DONE Part 1
+CLOSED: [2022-12-04 Sun 20:34]
+:LOGBOOK:
+- State "DONE"       from              [2022-12-04 Sun 20:34]
+:END:
 
 Appreciative of your help yesterday, one Elf gives you an encrypted strategy
 guide (your puzzle input) that they say will be sure to help you win. "The first
@@ -56,7 +60,11 @@ score of 15 (8 + 1 + 6).
 What would your total score be if everything goes exactly according to your
 strategy guide?
 
-** Part 2
+** DONE Part 2
+CLOSED: [2022-12-04 Sun 20:34]
+:LOGBOOK:
+- State "DONE"       from              [2022-12-04 Sun 20:34]
+:END:
 
 The Elf finishes helping with the tent and sneaks back over to you. "Anyway, the
 second column says how the round needs to end: X means you need to lose, Y means

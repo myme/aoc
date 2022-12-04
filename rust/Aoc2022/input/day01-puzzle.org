@@ -14,7 +14,11 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 in the Advent calendar; the second puzzle is unlocked when you complete the
 first. Each puzzle grants one star. Good luck!
 
-** Part 1
+** DONE Part 1
+CLOSED: [2022-12-04 Sun 20:34]
+:LOGBOOK:
+- State "DONE"       from              [2022-12-04 Sun 20:34]
+:END:
 
 The jungle must be too overgrown and difficult to navigate in vehicles or access
 from the air; the Elves' expedition traditionally goes on foot. As your boats
@@ -66,7 +70,11 @@ fourth Elf).
 Find the Elf carrying the most Calories. How many total Calories is that Elf
 carrying?
 
-** Part 2
+** DONE Part 2
+CLOSED: [2022-12-04 Sun 20:34]
+:LOGBOOK:
+- State "DONE"       from              [2022-12-04 Sun 20:34]
+:END:
 
 By the time you calculate the answer to the Elves' question, they've already
 realized that the Elf carrying the most Calories of food might eventually run
