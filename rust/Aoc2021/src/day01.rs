@@ -2,8 +2,8 @@ use std::collections::VecDeque;
 
 use crate::utils;
 
-fn part1(numbers: &Vec<i32>) -> i32 {
-    let mut larger: i32 = 0;
+fn part1(numbers: &Vec<i32>) -> u64 {
+    let mut larger = 0u64;
     let mut prev: Option<i32> = None;
 
     for number in numbers {
@@ -18,8 +18,8 @@ fn part1(numbers: &Vec<i32>) -> i32 {
     larger
 }
 
-fn part2(numbers: &Vec<i32>) -> i32 {
-    let mut larger: i32 = 0;
+fn part2(numbers: &Vec<i32>) -> u64 {
+    let mut larger = 0u64;
     let mut deque = VecDeque::new();
 
     for number in numbers {
@@ -37,11 +37,11 @@ fn part2(numbers: &Vec<i32>) -> i32 {
     larger
 }
 
-pub fn day1(input: &str) -> (i64, i64) {
+pub fn day1(input: &str) -> (u64, u64) {
     let mut numbers: Vec<i32> = vec!();
     for line in utils::to_lines(input) {
         numbers.push(line.parse().unwrap());
     }
 
-    (part1(&numbers).into(), part2(&numbers).into())
+    (part1(&numbers), part2(&numbers))
 }

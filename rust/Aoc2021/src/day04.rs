@@ -2,7 +2,7 @@ use crate::utils;
 
 struct Board {
     won: bool,
-    cells: [(i32, bool); 25],
+    cells: [(u64, bool); 25],
 }
 
 fn parse_boards(lines: &[String]) -> Vec<Board> {
@@ -52,8 +52,8 @@ fn check_win(board: &Board) -> bool {
     false
 }
 
-fn sum_board_unchecked(board: &Board) -> i32 {
-    let mut sum = 0;
+fn sum_board_unchecked(board: &Board) -> u64 {
+    let mut sum = 0u64;
 
     for (value, checked) in board.cells {
         if !checked {
@@ -64,7 +64,7 @@ fn sum_board_unchecked(board: &Board) -> i32 {
     sum
 }
 
-fn play_bingo(boards: &mut Vec<Board>, draws: &Vec<i32>, last_winner: bool) -> i32 {
+fn play_bingo(boards: &mut Vec<Board>, draws: &Vec<u64>, last_winner: bool) -> u64 {
     let mut remain = boards.len();
 
     for draw in draws {
@@ -89,9 +89,9 @@ fn play_bingo(boards: &mut Vec<Board>, draws: &Vec<i32>, last_winner: bool) -> i
     0
 }
 
-pub fn day4(input: &str) -> (i64, i64) {
+pub fn day4(input: &str) -> (u64, u64) {
     let lines = utils::to_lines(input);
-    let draws: Vec<i32> = lines[0].split(',').map(|v| v.parse().unwrap()).collect();
+    let draws: Vec<u64> = lines[0].split(',').map(|v| v.parse().unwrap()).collect();
 
     let mut boards = parse_boards(&lines[1..]);
     let part1 = play_bingo(&mut boards, &draws, false);
@@ -99,5 +99,5 @@ pub fn day4(input: &str) -> (i64, i64) {
     let mut boards = parse_boards(&lines[1..]);
     let part2 = play_bingo(&mut boards, &draws, true);
 
-    (part1.into(), part2.into())
+    (part1, part2)
 }

@@ -1,7 +1,7 @@
 use crate::utils;
 
-fn from_binary_string(input: &str) -> i32 {
-    i32::from_str_radix(input, 2).expect(&format!("Unable to parse binary number: {}", input))
+fn from_binary_string(input: &str) -> u64 {
+    u64::from_str_radix(input, 2).expect(&format!("Unable to parse binary number: {}", input))
 }
 
 fn get_bit_frequencies(lines: &[String]) -> Vec<i32> {
@@ -29,7 +29,7 @@ fn get_bit_frequencies(lines: &[String]) -> Vec<i32> {
     counters
 }
 
-fn part1(lines: &Vec<String>) -> i32 {
+fn part1(lines: &Vec<String>) -> u64 {
     let counters = get_bit_frequencies(lines);
 
     let mut gamma_str = String::from("");
@@ -149,7 +149,7 @@ where
     })
 }
 
-fn part2(trie: &BinTrie) -> i32 {
+fn part2(trie: &BinTrie) -> u64 {
     let o2_gen_rating_str = find_node_value_path(&trie, "", |zero, one| {
         if zero > one {
             Direction::Left
@@ -171,10 +171,10 @@ fn part2(trie: &BinTrie) -> i32 {
     o2_gen_rating * co2_scrub_rating
 }
 
-pub fn day3(input: &str) -> (i64, i64) {
+pub fn day3(input: &str) -> (u64, u64) {
     let lines = utils::to_lines(input);
     let trie = build_trie(&lines);
     // print_trie(&trie, "");
 
-    (part1(&lines).into(), part2(&trie).into())
+    (part1(&lines), part2(&trie))
 }

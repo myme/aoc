@@ -2,7 +2,7 @@ use std::collections::{HashMap, VecDeque};
 
 use crate::utils;
 
-fn find_corrupted_score(input: &String) -> Option<i64> {
+fn find_corrupted_score(input: &String) -> Option<u64> {
     let chunk_chars: HashMap<char, char> = HashMap::from([
         ('(', ')'),
         ('[', ']'),
@@ -10,7 +10,7 @@ fn find_corrupted_score(input: &String) -> Option<i64> {
         ('<', '>'),
     ]);
 
-    let scoring_table: HashMap<char, i64> = HashMap::from([
+    let scoring_table: HashMap<char, u64> = HashMap::from([
         (')', 3),
         (']', 57),
         ('}', 1197),
@@ -32,7 +32,7 @@ fn find_corrupted_score(input: &String) -> Option<i64> {
     None
 }
 
-fn fix_incomplete_line(input: &String) -> Option<i64> {
+fn fix_incomplete_line(input: &String) -> Option<u64> {
     let chunk_chars: HashMap<char, char> = HashMap::from([
         ('(', ')'),
         ('[', ']'),
@@ -40,7 +40,7 @@ fn fix_incomplete_line(input: &String) -> Option<i64> {
         ('<', '>'),
     ]);
 
-    let scoring_table: HashMap<char, i64> = HashMap::from([
+    let scoring_table: HashMap<char, u64> = HashMap::from([
         (')', 1),
         (']', 2),
         ('}', 3),
@@ -63,7 +63,7 @@ fn fix_incomplete_line(input: &String) -> Option<i64> {
         return None
     }
 
-    let mut sum = 0_i64;
+    let mut sum = 0_u64;
 
     while let Some(closing) = chunk_stack.pop_front() {
         sum = sum * 5 + scoring_table.get(&closing)?;
@@ -72,11 +72,11 @@ fn fix_incomplete_line(input: &String) -> Option<i64> {
     return Some(sum);
 }
 
-pub fn day10(input: &str) -> (i64, i64) {
+pub fn day10(input: &str) -> (u64, u64) {
     let lines = utils::to_lines(input);
     let part1 = lines.iter().map(find_corrupted_score).flatten().sum();
 
-    let mut fixed: Vec<i64> = lines.iter().filter_map(fix_incomplete_line).collect();
+    let mut fixed: Vec<u64> = lines.iter().filter_map(fix_incomplete_line).collect();
     fixed.sort();
     let part2 = fixed[fixed.len() / 2];
 

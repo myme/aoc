@@ -49,7 +49,7 @@ fn build_graph(lines: &Vec<String>) -> Graph {
 #[derive(Clone, Copy, PartialEq)]
 enum Revisit { OnlyBig, OneSmall }
 
-fn count_paths(node: &str, graph: &Graph, path: &mut Path, revisit: Revisit) -> i64 {
+fn count_paths(node: &str, graph: &Graph, path: &mut Path, revisit: Revisit) -> u64 {
     if node == "end" {
         return 1;
     }
@@ -80,7 +80,7 @@ fn count_paths(node: &str, graph: &Graph, path: &mut Path, revisit: Revisit) -> 
     paths
 }
 
-pub fn day12(input: &str) -> (i64, i64) {
+pub fn day12(input: &str) -> (u64, u64) {
     let graph = build_graph(&utils::to_lines(input));
 
     let part1 = count_paths("start", &graph, &mut Path::new(), Revisit::OnlyBig);

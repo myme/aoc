@@ -37,7 +37,7 @@ fn parse_lines(input: &Vec<String>) -> Vec<Line> {
 }
 
 
-fn build_map(lines: &Vec<Line>, with_diagonal: bool) -> HashMap<Point, i32> {
+fn build_map(lines: &Vec<Line>, with_diagonal: bool) -> HashMap<Point, u64> {
     let mut map = HashMap::new();
 
     for line in lines {
@@ -74,7 +74,7 @@ fn build_map(lines: &Vec<Line>, with_diagonal: bool) -> HashMap<Point, i32> {
     map
 }
 
-pub fn day5(input: &str) -> (i64, i64) {
+pub fn day5(input: &str) -> (u64, u64) {
     let lines = parse_lines(&utils::to_lines(input));
 
     let map = build_map(&lines, false);

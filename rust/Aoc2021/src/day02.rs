@@ -8,10 +8,10 @@ enum Direction {
 
 struct Motion {
     direction: Direction,
-    amount: i32,
+    amount: u64,
 }
 
-fn part1(motions: &Vec<Motion>) -> i32 {
+fn part1(motions: &Vec<Motion>) -> u64 {
     let mut depth = 0;
     let mut position = 0;
 
@@ -26,9 +26,9 @@ fn part1(motions: &Vec<Motion>) -> i32 {
     depth * position
 }
 
-fn part2(motions: &Vec<Motion>) -> i32 {
-    let mut aim: i32 = 0;
-    let mut depth: i32 = 0;
+fn part2(motions: &Vec<Motion>) -> u64 {
+    let mut aim = 0u64;
+    let mut depth = 0u64;
     let mut position = 0;
 
     for motion in motions {
@@ -45,7 +45,7 @@ fn part2(motions: &Vec<Motion>) -> i32 {
     depth * position
 }
 
-pub fn day2(input: &str) -> (i64, i64) {
+pub fn day2(input: &str) -> (u64, u64) {
     let mut motions: Vec<Motion> = vec!();
     for line in utils::to_lines(input) {
         let words: Vec<&str> = line.split(" ").collect();
@@ -66,5 +66,5 @@ pub fn day2(input: &str) -> (i64, i64) {
         })
     }
 
-    (part1(&motions).into(), part2(&motions).into())
+    (part1(&motions), part2(&motions))
 }

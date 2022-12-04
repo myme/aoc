@@ -58,9 +58,9 @@ enum Part {
     Part2,
 }
 
-fn run_simulation(part: Part, mut state: State) -> i64 {
+fn run_simulation(part: Part, mut state: State) -> u64 {
     let mut step = 0;
-    let mut total_flashes = 0_i64;
+    let mut total_flashes = 0_u64;
     let rows = state.len();
     let cols = state[0].len();
 
@@ -108,7 +108,7 @@ fn run_simulation(part: Part, mut state: State) -> i64 {
     }
 }
 
-pub fn day11(input: &str) -> (i64, i64) {
+pub fn day11(input: &str) -> (u64, u64) {
     let lines = &utils::to_lines(input);
     let part1 = run_simulation(Part::Part1, parse_octopuses(lines));
     let part2 = run_simulation(Part::Part2, parse_octopuses(lines));

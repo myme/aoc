@@ -101,15 +101,15 @@ fn find_basins(grid: &Grid, points: &Vec<Point>) -> Basins {
     basins
 }
 
-pub fn day9(input: &str) -> (i64, i64) {
+pub fn day9(input: &str) -> (u64, u64) {
     let grid = parse_grid(&utils::to_lines(input));
     let low_points = find_low_points(&grid);
 
-    let part1 = low_points.iter().map(|v| i64::from(v.height) + 1).sum();
+    let part1 = low_points.iter().map(|v| u64::from(v.height) + 1).sum();
 
-    let mut basins: Vec<i64> = find_basins(&grid, &low_points)
+    let mut basins: Vec<u64> = find_basins(&grid, &low_points)
         .iter()
-        .map(|b| b.len() as i64)
+        .map(|b| b.len() as u64)
         .collect();
     basins.sort();
     basins.reverse();

@@ -32,12 +32,12 @@ fn verify_answer<T: PartialEq + Display>(label: &str, actual: &T, expected: &T) 
 }
 
 struct Answer {
-    small: (i64, i64),
-    input: (i64, i64),
+    small: (u64, u64),
+    input: (u64, u64),
 }
-type Handler = fn(&str) -> (i64, i64);
+type Handler = fn(&str) -> (u64, u64);
 
-fn run_day(day: u32, in_file: &str, func: Handler, answer: (i64, i64)) {
+fn run_day(day: u32, in_file: &str, func: Handler, answer: (u64, u64)) {
     let input = read_file(in_file);
     let (part1, part2) = func(&input);
     println!("Day {:02}", day);
