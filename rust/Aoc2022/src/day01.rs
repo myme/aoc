@@ -1,18 +1,18 @@
-fn part1(sums: &Vec<i64>) -> i64 {
+fn part1(sums: &Vec<u64>) -> u64 {
     sums[0]
 }
 
-fn part2(sums: &Vec<i64>) -> i64 {
+fn part2(sums: &Vec<u64>) -> u64 {
     sums[0] + sums[1] + sums[2]
 }
 
-pub fn day1(input: &str) -> (i64, i64) {
-    let mut sums = Vec::<i64>::new();
-    let mut sum: i64 = 0;
+pub fn day1(input: &str) -> (u64, u64) {
+    let mut sums = Vec::<u64>::new();
+    let mut sum: u64 = 0;
 
     for line in input.lines().map(|l| l.trim()) {
         if !line.is_empty() {
-            sum += line.parse::<i64>().unwrap();
+            sum += line.parse::<u64>().unwrap();
         } else {
             sums.push(sum);
             sum = 0;

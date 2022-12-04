@@ -34,7 +34,7 @@ fn find_hand(hand: &Hand, result: &str) -> Option<Hand> {
     }
 }
 
-fn score_hand(hand: &Hand) -> i64 {
+fn score_hand(hand: &Hand) -> u64 {
     match hand {
         Hand::Rock => 1,
         Hand::Paper => 2,
@@ -42,7 +42,7 @@ fn score_hand(hand: &Hand) -> i64 {
     }
 }
 
-fn score_win(hand: &Hand, other: &Hand) -> i64 {
+fn score_win(hand: &Hand, other: &Hand) -> u64 {
     match relation(hand) {
         (lose, _) if *other == lose => 0,
         (_, win) if *other == win => 6,
@@ -50,8 +50,8 @@ fn score_win(hand: &Hand, other: &Hand) -> i64 {
     }
 }
 
-fn part1(input: &str) -> Option<i64> {
-    let mut score: i64 = 0;
+fn part1(input: &str) -> Option<u64> {
+    let mut score: u64 = 0;
 
     for line in input.lines() {
         let mut parts = line.split(" ").filter_map(parse_type);
@@ -63,8 +63,8 @@ fn part1(input: &str) -> Option<i64> {
     Some(score)
 }
 
-fn part2(input: &str) -> Option<i64> {
-    let mut score: i64 = 0;
+fn part2(input: &str) -> Option<u64> {
+    let mut score: u64 = 0;
 
     for line in input.lines() {
         let mut parts = line.split(" ");
@@ -76,6 +76,6 @@ fn part2(input: &str) -> Option<i64> {
     Some(score)
 }
 
-pub fn day2(input: &str) -> (i64, i64) {
+pub fn day2(input: &str) -> (u64, u64) {
     (part1(input).unwrap_or(0), part2(input).unwrap_or(0))
 }

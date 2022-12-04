@@ -8,8 +8,8 @@ fn to_priority(chr: char) -> u64 {
     }
 }
 
-fn part1(input: &str) -> i64 {
-    let mut sum = 0i64;
+fn part1(input: &str) -> u64 {
+    let mut sum = 0u64;
 
     for line in input.lines() {
         let (fst, snd) = line.split_at(line.len() / 2);
@@ -18,17 +18,17 @@ fn part1(input: &str) -> i64 {
         let snd_pris = HashSet::<u64>::from_iter(snd.chars().map(to_priority));
 
         for each in fst_pris.intersection(&snd_pris) {
-            sum += *each as i64;
+            sum += *each;
         }
     }
 
-    sum
+    sum as u64
 }
 
-fn part2(input: &str) -> i64 {
+fn part2(input: &str) -> u64 {
     let all_chars = HashSet::<char>::from_iter(('a'..='z').chain('A'..='Z'));
     let lines = input.lines().collect::<Vec<&str>>();
-    let mut sum = 0i64;
+    let mut sum = 0u64;
 
     for chunks in lines.chunks(3) {
         let mut set = all_chars.clone();
@@ -39,12 +39,12 @@ fn part2(input: &str) -> i64 {
             set = is.map(|c| *c).collect::<HashSet<char>>();
         }
 
-        sum += i64::sum(set.iter().map(|c| to_priority(*c) as i64));
+        sum += u64::sum(set.iter().map(|c| to_priority(*c)));
     }
 
-    sum
+    sum as u64
 }
 
-pub fn day3(input: &str) -> (i64, i64) {
+pub fn day3(input: &str) -> (u64, u64) {
     (part1(input), part2(input))
 }
