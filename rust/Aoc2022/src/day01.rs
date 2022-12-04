@@ -1,5 +1,3 @@
-use crate::utils;
-
 fn part1(sums: &Vec<i64>) -> i64 {
     sums[0]
 }
@@ -12,7 +10,7 @@ pub fn day1(input: &str) -> (i64, i64) {
     let mut sums = Vec::<i64>::new();
     let mut sum: i64 = 0;
 
-    for line in utils::to_lines_no_skip(input) {
+    for line in input.lines() {
         if !line.trim().is_empty() {
             sum += line.parse::<i64>().unwrap();
         } else {

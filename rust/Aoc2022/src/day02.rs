@@ -1,5 +1,3 @@
-use crate::utils;
-
 #[derive(Clone, PartialEq, PartialOrd, Eq, Ord)]
 enum Hand {
     Rock,
@@ -55,7 +53,7 @@ fn score_win(hand: &Hand, other: &Hand) -> i64 {
 fn part1(input: &str) -> Option<i64> {
     let mut score: i64 = 0;
 
-    for line in utils::to_lines(input) {
+    for line in input.lines() {
         let mut parts = line.split(" ").filter_map(parse_type);
         let opponent: Hand = parts.next()?;
         let own: Hand = parts.next()?;
@@ -68,7 +66,7 @@ fn part1(input: &str) -> Option<i64> {
 fn part2(input: &str) -> Option<i64> {
     let mut score: i64 = 0;
 
-    for line in utils::to_lines(input) {
+    for line in input.lines() {
         let mut parts = line.split(" ");
         let opponent: Hand = parts.next().and_then(parse_type)?;
         let own: Hand = parts.next().and_then(|result| find_hand(&opponent, result))?;

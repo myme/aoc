@@ -2,7 +2,6 @@ use std::{fmt::Display, fs, process::exit};
 
 use ansi_term::Color::{Green, Red};
 
-mod utils;
 mod day01;
 mod day02;
 
