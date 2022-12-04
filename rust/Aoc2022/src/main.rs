@@ -89,8 +89,8 @@ fn main() {
             input: (13009, 10398),
         }),
         (day03::day3, Answer {
-            small: (157, 0),
-            input: (8105, 0),
+            small: (157, 70),
+            input: (8105, 2363),
         }),
     );
 
