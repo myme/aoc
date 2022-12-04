@@ -5,6 +5,7 @@ use ansi_term::Color::{Green, Red};
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 fn read_file(fname: &str) -> String {
     let input = fs::read_to_string(fname)
@@ -91,6 +92,10 @@ fn main() {
         (day03::day3, Answer {
             small: (157, 70),
             input: (8105, 2363),
+        }),
+        (day04::day4, Answer {
+            small: (2, 0),
+            input: (0, 0),
         }),
     );
 
