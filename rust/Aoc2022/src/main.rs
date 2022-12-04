@@ -90,7 +90,7 @@ fn main() {
         }),
         (day03::day3, Answer {
             small: (157, 0),
-            input: (0, 0),
+            input: (8105, 0),
         }),
     );
 
