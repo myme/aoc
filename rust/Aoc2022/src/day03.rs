@@ -26,7 +26,7 @@ fn part1(input: &str) -> i64 {
 }
 
 fn part2(input: &str) -> i64 {
-    let all_chars = HashSet::<char>::from_iter(('a' .. '{').chain('A' .. '['));
+    let all_chars = HashSet::<char>::from_iter(('a'..='z').chain('A'..='Z'));
     let lines = input.lines().collect::<Vec<&str>>();
     let mut sum = 0i64;
 
