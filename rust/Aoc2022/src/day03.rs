@@ -22,7 +22,7 @@ fn part1(input: &str) -> u64 {
         }
     }
 
-    sum as u64
+    sum
 }
 
 fn part2(input: &str) -> u64 {
@@ -42,7 +42,7 @@ fn part2(input: &str) -> u64 {
         sum += u64::sum(set.iter().map(|c| to_priority(*c)));
     }
 
-    sum as u64
+    sum
 }
 
 pub fn day3(input: &str) -> (u64, u64) {
