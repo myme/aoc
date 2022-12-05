@@ -1,3 +1,3 @@
-pub fn day5(input: &str) -> (u64, u64) {
-    (0, 0)
+pub fn day5(_input: &str) -> (String, String) {
+    (String::from(""), String::from(""))
 }

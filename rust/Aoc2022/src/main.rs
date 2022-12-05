@@ -1,4 +1,4 @@
-use std::{fmt::Display, fs, process::exit};
+use std::{fs, process::exit};
 
 use ansi_term::Color::{Green, Red};
 
@@ -14,7 +14,7 @@ fn read_file(fname: &str) -> String {
     input
 }
 
-fn verify_answer<T: PartialEq + Display>(label: &str, actual: &T, expected: &T) -> String {
+fn verify_answer(label: &str, actual: &str, expected: &str) -> String {
     if actual == expected {
         format!("{} {}: {}", Green.paint("✔"), label, actual)
     } else {
@@ -22,18 +22,18 @@ fn verify_answer<T: PartialEq + Display>(label: &str, actual: &T, expected: &T) 
     }
 }
 
-struct Answer {
-    small: (u64, u64),
-    input: (u64, u64),
+struct Answer<'a> {
+    small: (&'a str, &'a str),
+    input: (&'a str, &'a str),
 }
-type Handler = fn(&str) -> (u64, u64);
+type Handler = fn(&str) -> (String, String);
 
-fn run_day(day: u32, in_file: &str, func: Handler, answer: (u64, u64)) {
+fn run_day(day: u32, in_file: &str, func: Handler, answer: (&str, &str)) {
     let input = read_file(in_file);
     let (part1, part2) = func(&input);
     println!("Day {:02}", day);
-    println!("  {}", verify_answer("Part 1", &part1, &answer.0));
-    println!("  {}", verify_answer("Part 2", &part2, &answer.1));
+    println!("  {}", verify_answer("Part 1", &part1, answer.0));
+    println!("  {}", verify_answer("Part 2", &part2, answer.1));
 }
 
 struct Args {
@@ -83,24 +83,24 @@ fn main() {
 
     let solutions: Vec<(Handler, Answer)> = vec!(
         (day01::day1, Answer {
-            small: (24000, 45000),
-            input: (67658, 200158),
+            small: ("24000", "45000"),
+            input: ("67658", "200158"),
         }),
         (day02::day2, Answer {
-            small: (15, 12),
-            input: (13009, 10398),
+            small: ("15", "12"),
+            input: ("13009", "10398"),
         }),
         (day03::day3, Answer {
-            small: (157, 70),
-            input: (8105, 2363),
+            small: ("157", "70"),
+            input: ("8105", "2363"),
         }),
         (day04::day4, Answer {
-            small: (2, 4),
-            input: (576, 905),
+            small: ("2", "4"),
+            input: ("576", "905"),
         }),
         (day05::day5, Answer {
-            small: (0, 0),
-            input: (0, 0),
+            small: ("0", "0"),
+            input: ("0", "0"),
         }),
     );
 

@@ -76,6 +76,6 @@ fn part2(input: &str) -> Option<u64> {
     Some(score)
 }
 
-pub fn day2(input: &str) -> (u64, u64) {
-    (part1(input).unwrap_or(0), part2(input).unwrap_or(0))
+pub fn day2(input: &str) -> (String, String) {
+    (part1(input).unwrap_or(0).to_string(), part2(input).unwrap_or(0).to_string())
 }

@@ -6,7 +6,7 @@ fn part2(sums: &Vec<u64>) -> u64 {
     sums[0] + sums[1] + sums[2]
 }
 
-pub fn day1(input: &str) -> (u64, u64) {
+pub fn day1(input: &str) -> (String, String) {
     let mut sums = Vec::<u64>::new();
     let mut sum = 0u64;
 
@@ -22,5 +22,5 @@ pub fn day1(input: &str) -> (u64, u64) {
     sums.push(sum);
     sums.sort_by(|a, b| b.cmp(a));
 
-    (part1(&sums), part2(&sums))
+    (part1(&sums).to_string(), part2(&sums).to_string())
 }

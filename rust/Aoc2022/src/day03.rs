@@ -45,6 +45,6 @@ fn part2(input: &str) -> u64 {
     sum
 }
 
-pub fn day3(input: &str) -> (u64, u64) {
-    (part1(input), part2(input))
+pub fn day3(input: &str) -> (String, String) {
+    (part1(input).to_string(), part2(input).to_string())
 }
