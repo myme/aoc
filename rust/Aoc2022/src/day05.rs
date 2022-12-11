@@ -13,8 +13,10 @@ fn parse_char(chars: &mut Chars) -> Option<char> {
     }
 }
 
+type Op = (usize, usize, usize);
+
 // Parse: "move 1 from 2 to 3" => (1, 2, 3)
-fn parse_op<'a, I>(words: I) -> Option<(usize, usize, usize)>
+fn parse_op<'a, I>(words: I) -> Option<Op>
 where
     I: IntoIterator<Item = &'a str>,
 {
@@ -24,10 +26,12 @@ where
     let count = iter.next()?;
     let from = iter.next()?;
     let to = iter.next()?;
-    Some((count, from, to))
+    Some((count, from - 1, to - 1))
 }
 
-fn parse_state(input: &str) -> Vec<Vec<char>> {
+type Stacks = Vec<Vec<char>>;
+
+fn parse_state(input: &str) -> Stacks {
     let mut ls = input.rsplit("\n");
 
     // Parse: " 1   2   3   .."
@@ -52,30 +56,40 @@ fn parse_state(input: &str) -> Vec<Vec<char>> {
     stacks
 }
 
-fn exec_ops(input: &str, stacks: &mut Vec<Vec<char>>) {
-    for line in input.lines() {
+fn run<F>(input: &str, handle_op: F) -> Option<String>
+where F: Fn(Op, &mut Stacks)
+{
+    let mut parts = input.split("\n\n");
+    let mut stacks = parse_state(parts.next()?);
+
+    for line in parts.next()?.lines() {
         let words = line.split(" ").filter(|each| !each.trim().is_empty());
         if let Some((count, from, to)) = parse_op(words) {
-            for _ in 0 .. count {
-                if let Some(val) = stacks[from - 1].pop() {
-                    stacks[to - 1].push(val);
-                }
-            }
+            handle_op((count, from, to), &mut stacks);
         }
     }
-}
-
-fn part1(input: &str) -> Option<String> {
-    let mut parts = input.split("\n\n");
-
-    let mut stacks = parse_state(parts.next()?);
-    exec_ops(parts.next()?, &mut stacks);
 
     Some(stacks.iter().filter_map(|stack| stack.last()).collect::<String>())
-
-    // Some(String::new())
 }
 
 pub fn day5(input: &str) -> (String, String) {
-    (part1(input).unwrap_or(String::new()), String::from(""))
+    let part1 = run(input, |(count, from, to), stacks| {
+        for _ in 0 .. count {
+            if let Some(val) = stacks[from].pop() {
+                stacks[to].push(val);
+            }
+        }
+    });
+
+    let part2 = run(input, |(count, from, to), stacks| {
+        let from_len = stacks[from].len();
+        let drained = stacks[from]
+            .drain(from_len - count .. from_len)
+            .collect::<Vec<_>>();
+        for each in drained {
+            stacks[to].push(each);
+        }
+    });
+
+    (part1.unwrap_or(String::new()), part2.unwrap_or(String::new()))
 }

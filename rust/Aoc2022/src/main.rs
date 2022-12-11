@@ -99,8 +99,8 @@ fn main() {
             input: ("576", "905"),
         }),
         (day05::day5, Answer {
-            small: ("CMZ", "0"),
-            input: ("CVCWCRTVQ", "0"),
+            small: ("CMZ", "MCD"),
+            input: ("CVCWCRTVQ", "CNSCZWLVT"),
         }),
     );
 
