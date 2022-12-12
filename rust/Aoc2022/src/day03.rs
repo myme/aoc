@@ -36,7 +36,7 @@ fn part2(input: &str) -> u64 {
         for each in chunks {
             let other = HashSet::<char>::from_iter(each.chars());
             let is = set.intersection(&other);
-            set = is.map(|c| *c).collect::<HashSet<char>>();
+            set = is.copied().collect::<HashSet<char>>();
         }
 
         sum += u64::sum(set.iter().map(|c| to_priority(*c)));

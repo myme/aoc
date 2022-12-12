@@ -11,9 +11,8 @@ mod day06;
 mod day07;
 
 fn read_file(fname: &str) -> String {
-    let input = fs::read_to_string(fname)
-        .expect(&format!("Unable to read input file: {}", fname));
-    input
+    fs::read_to_string(fname)
+        .expect(&format!("Unable to read input file: {}", fname))
 }
 
 fn verify_answer(label: &str, actual: &str, expected: &str) -> String {

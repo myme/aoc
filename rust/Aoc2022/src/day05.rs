@@ -32,13 +32,13 @@ where
 type Stacks = Vec<Vec<char>>;
 
 fn parse_state(input: &str) -> Stacks {
-    let mut ls = input.rsplit("\n");
+    let mut ls = input.rsplit('\n');
 
     // Parse: " 1   2   3   .."
     let n_stacks = ls
         .next()
         .unwrap()
-        .split(" ")
+        .split(' ')
         .filter(|each| !each.trim().is_empty())
         .count();
     let mut stacks: Vec<Vec<char>> = vec![Vec::new(); n_stacks];
@@ -46,9 +46,9 @@ fn parse_state(input: &str) -> Stacks {
     // Parse: "[Z] [M] [P]"
     for line in ls {
         let mut chars = line.chars();
-        for i in 0..n_stacks {
+        for stack in &mut stacks {
             if let Some(char) = parse_char(&mut chars) {
-                stacks[i].push(char);
+                stack.push(char);
             }
         }
     }
@@ -63,7 +63,7 @@ where F: Fn(Op, &mut Stacks)
     let mut stacks = parse_state(parts.next()?);
 
     for line in parts.next()?.lines() {
-        let words = line.split(" ").filter(|each| !each.trim().is_empty());
+        let words = line.split(' ').filter(|each| !each.trim().is_empty());
         if let Some((count, from, to)) = parse_op(words) {
             handle_op((count, from, to), &mut stacks);
         }
@@ -91,5 +91,5 @@ pub fn day5(input: &str) -> (String, String) {
         }
     });
 
-    (part1.unwrap_or(String::new()), part2.unwrap_or(String::new()))
+    (part1.unwrap_or_default(), part2.unwrap_or_default())
 }

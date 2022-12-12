@@ -3,7 +3,7 @@ use std::collections::HashSet;
 type Pair = (u64, u64);
 
 fn to_pair(input: &str) -> Pair {
-    let mut iter = input.split("-").map(|each| each.parse().unwrap());
+    let mut iter = input.split('-').map(|each| each.parse().unwrap());
     let start = iter.next().unwrap();
     let end = iter.next().unwrap();
     (start, end)
@@ -17,7 +17,7 @@ fn part1(input: &str) -> u64 {
     let mut count = 0u64;
 
     for line in input.lines() {
-        let mut iter = line.split(",").map(to_pair);
+        let mut iter = line.split(',').map(to_pair);
         let first = iter.next().unwrap();
         let second = iter.next().unwrap();
         if is_contained(first, second) {
@@ -33,7 +33,7 @@ fn part2(input: &str) -> u64 {
 
     for line in input.lines() {
         let mut iter = line
-            .split(",")
+            .split(',')
             .map(to_pair)
             .map(|(start, end)| HashSet::<u64>::from_iter(start..=end));
         let first = iter.next().unwrap();
