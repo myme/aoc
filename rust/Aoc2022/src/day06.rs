@@ -10,7 +10,7 @@ fn find_distinct(input: &str, n_distinct: usize) -> String {
         }
     }
 
-    String::new()
+    unreachable!("No marker!")
 }
 
 pub fn day6(input: &str) -> (String, String) {

@@ -8,6 +8,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 
 fn read_file(fname: &str) -> String {
     let input = fs::read_to_string(fname)
@@ -106,6 +107,10 @@ fn main() {
         (day06::day6, Answer {
             small: ("7", "19"),
             input: ("1647", "2447"),
+        }),
+        (day07::day7, Answer {
+            small: ("0", "0"),
+            input: ("0", "0"),
         }),
     );
 
