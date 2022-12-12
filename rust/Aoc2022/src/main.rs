@@ -105,7 +105,7 @@ fn main() {
         }),
         (day06::day6, Answer {
             small: ("7", "0"),
-            input: ("0", "0"),
+            input: ("1647", "0"),
         }),
     );
 

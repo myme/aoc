@@ -1,5 +1,12 @@
 * [[https://adventofcode.com/2022/day/6][Day 6: Tuning Trouble]]
 
+** DONE Part 1
+CLOSED: [2022-12-12 Mon 22:50]
+:LOGBOOK:
+- State "DONE"       from              [2022-12-12 Mon 22:50]
+CLOCK: [2022-12-12 Mon 22:40]--[2022-12-12 Mon 22:50] =>  0:10
+:END:
+
 The preparations are finally complete; you and the Elves leave camp on foot and
 begin to make your way toward the star fruit grove.
 
