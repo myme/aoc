@@ -1,13 +1,5 @@
-fn part1(sums: &Vec<u64>) -> u64 {
-    sums[0]
-}
-
-fn part2(sums: &Vec<u64>) -> u64 {
-    sums[0] + sums[1] + sums[2]
-}
-
 pub fn day1(input: &str) -> (String, String) {
-    let mut sums = Vec::<u64>::new();
+    let mut sums = Vec::<_>::new();
     let mut sum = 0u64;
 
     for line in input.lines().map(|l| l.trim()) {
@@ -22,5 +14,8 @@ pub fn day1(input: &str) -> (String, String) {
     sums.push(sum);
     sums.sort_by(|a, b| b.cmp(a));
 
-    (part1(&sums).to_string(), part2(&sums).to_string())
+    let part1 = sums[0];
+    let part2: u64 = sums[0..3].iter().sum();
+
+    (part1.to_string(), part2.to_string())
 }
