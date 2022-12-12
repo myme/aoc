@@ -1,12 +1,12 @@
 use std::collections::HashSet;
 
-fn part1(input: &str) -> String {
+fn find_distinct(input: &str, n_distinct: usize) -> String {
     let chars = input.trim().chars().collect::<Vec<_>>();
 
-    for (idx, each) in chars.windows(4).enumerate() {
+    for (idx, each) in chars.windows(n_distinct).enumerate() {
         let set: HashSet<&char> = HashSet::from_iter(each.iter());
-        if set.len() == 4 {
-            return (idx + 4).to_string();
+        if set.len() == n_distinct {
+            return (idx + n_distinct).to_string();
         }
     }
 
@@ -14,5 +14,8 @@ fn part1(input: &str) -> String {
 }
 
 pub fn day6(input: &str) -> (String, String) {
-    (part1(input), String::new())
+    let part1 = find_distinct(input, 4);
+    let part2 = find_distinct(input, 14);
+
+    (part1, part2)
 }
