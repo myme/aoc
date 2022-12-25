@@ -15,7 +15,7 @@ enum Node {
     File(usize),
 }
 
-fn split_file_entry<'a>(input: &'a str) -> Option<(usize, &'a str)> {
+fn split_file_entry(input: &str) -> Option<(usize, &str)> {
     let mut parts = input.split(' ');
     let size = parts.next().and_then(|x| x.parse().ok())?;
     let name = parts.next()?;
@@ -30,21 +30,20 @@ fn up(mut cursor: Cursor) -> Cursor {
     } = cursor
     {
         cursor = *parent;
-        cursor.node.insert(name.to_string(), Node::Tree(node));
+        cursor.node.insert(name, Node::Tree(node));
     }
 
     cursor
 }
 
 fn build_tree(input: &str) -> Cursor {
-    let mut lines = input.lines();
     let mut cursor = Cursor {
         name: "/".to_string(),
         node: Tree::new(),
         parent: None,
     };
 
-    while let Some(line) = lines.next() {
+    for line in input.lines() {
         if let Some(path) = line.strip_prefix("$ cd ") {
             match path {
                 "/" => {
@@ -108,7 +107,7 @@ fn find_dir_size(tree: &Tree) -> (usize, Vec<usize>) {
     (size, sub_sizes)
 }
 
-fn part1(sizes: &Vec<usize>) -> String {
+fn part1(sizes: &[usize]) -> String {
     let sum: usize = sizes.iter().filter(|x| **x < MAX_SIZE).sum();
     sum.to_string()
 }
