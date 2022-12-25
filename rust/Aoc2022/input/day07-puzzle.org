@@ -1,6 +1,13 @@
 * [[https://adventofcode.com/2022/day/7][Day 7: No Space Left On Device]]
 
-** Part 1
+** DONE Part 1
+CLOSED: [2022-12-25 Sun 01:30]
+:LOGBOOK:
+CLOCK: [2022-12-24 Sat 23:30]--[2022-12-25 Sun 01:30] =>  2:00
+- State "DONE"       from              [2022-12-25 Sun 01:30]
+CLOCK: [2022-12-17 Sat 22:45]--[2022-12-17 Sat 23:49] =>  1:04
+CLOCK: [2022-12-12 Mon 23:17]--[2022-12-12 Mon 23:27] =>  0:10
+:END:
 
 You can hear birds chirping and raindrops hitting leaves as the expedition
 proceeds. Occasionally, you can even hear much louder sounds in the distance;
