@@ -36,6 +36,28 @@ fn up(mut cursor: Cursor) -> Cursor {
     cursor
 }
 
+fn to_root(mut cursor: Cursor) -> Cursor {
+    while cursor.parent.is_some() {
+        cursor = up(cursor);
+    }
+
+    cursor
+}
+
+fn cd(mut cursor: Cursor, path: &str) -> Cursor {
+    if let Some(Node::Tree(node)) = cursor.node.remove(path) {
+        cursor = Cursor {
+            name: path.to_string(),
+            node,
+            parent: Some(Box::new(cursor)),
+        };
+    } else {
+        panic!("No such directory: {}", path);
+    }
+
+    cursor
+}
+
 fn build_tree(input: &str) -> Cursor {
     let mut cursor = Cursor {
         name: "/".to_string(),
@@ -45,26 +67,10 @@ fn build_tree(input: &str) -> Cursor {
 
     for line in input.lines() {
         if let Some(path) = line.strip_prefix("$ cd ") {
-            match path {
-                "/" => {
-                    if cursor.name != "/" {
-                        panic!("Not at root!");
-                    }
-                }
-                ".." => {
-                    cursor = up(cursor);
-                }
-                _ => {
-                    if let Some(Node::Tree(node)) = cursor.node.remove(path) {
-                        cursor = Cursor {
-                            name: path.to_string(),
-                            node,
-                            parent: Some(Box::new(cursor)),
-                        };
-                    } else {
-                        panic!("No such directory: {}", path);
-                    }
-                }
+            cursor = match path {
+                "/" => to_root(cursor),
+                ".." => up(cursor),
+                _ => cd(cursor, path),
             }
         } else if line == "$ ls" {
             // no-op
@@ -79,11 +85,7 @@ fn build_tree(input: &str) -> Cursor {
         }
     }
 
-    while cursor.parent.is_some() {
-        cursor = up(cursor);
-    }
-
-    cursor
+    to_root(cursor)
 }
 
 const MAX_SIZE: usize = 100000;
@@ -108,7 +110,7 @@ fn find_dir_size(tree: &Tree) -> (usize, Vec<usize>) {
 }
 
 fn part1(sizes: &[usize]) -> String {
-    let sum: usize = sizes.iter().filter(|x| **x < MAX_SIZE).sum();
+    let sum: usize = sizes.iter().filter(|x| **x <= MAX_SIZE).sum();
     sum.to_string()
 }
 
