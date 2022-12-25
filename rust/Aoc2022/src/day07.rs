@@ -108,13 +108,23 @@ fn find_dir_size(tree: &Tree) -> (usize, Vec<usize>) {
     (size, sub_sizes)
 }
 
-fn part1(tree: &Cursor) -> String {
-    let (_, sub_sizes) = find_dir_size(&tree.node);
-    let sum: usize = sub_sizes.iter().filter(|x| **x < MAX_SIZE).sum();
+fn part1(sizes: &Vec<usize>) -> String {
+    let sum: usize = sizes.iter().filter(|x| **x < MAX_SIZE).sum();
     sum.to_string()
+}
+
+const DISK_SIZE: usize = 70_000_000;
+const REQUIRED_SIZE: usize = 30_000_000;
+
+fn part2(sizes: (usize, Vec<usize>)) -> String {
+    let used_space = DISK_SIZE - sizes.0;
+    let threshold = REQUIRED_SIZE - used_space;
+    let min = sizes.1.iter().filter(|x| **x > threshold).min();
+    min.unwrap_or(&0).to_string()
 }
 
 pub fn day7(input: &str) -> (String, String) {
     let tree = build_tree(input);
-    (part1(&tree), String::new())
+    let sizes = find_dir_size(&tree.node);
+    (part1(&sizes.1), part2(sizes))
 }
