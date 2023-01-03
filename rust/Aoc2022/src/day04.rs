@@ -1,51 +1,49 @@
 use std::collections::HashSet;
 
-type Pair = (u64, u64);
-
-fn to_pair(input: &str) -> Pair {
-    let mut iter = input.split('-').map(|each| each.parse().unwrap());
-    let start = iter.next().unwrap();
-    let end = iter.next().unwrap();
-    (start, end)
+struct Range {
+    start: u64,
+    end: u64,
 }
 
-fn is_contained((x1, x2): Pair, (y1, y2): Pair) -> bool {
-    (x1 <= y1 && x2 >= y2) || (x1 >= y1 && x2 <= y2)
-}
-
-fn part1(input: &str) -> u64 {
-    let mut count = 0u64;
-
-    for line in input.lines() {
-        let mut iter = line.split(',').map(to_pair);
-        let first = iter.next().unwrap();
-        let second = iter.next().unwrap();
-        if is_contained(first, second) {
-            count += 1;
-        }
+impl Range {
+    fn from_str(input: &str) -> Option<Range> {
+        let mut iter = input.split('-').filter_map(|each| each.parse().ok());
+        let start = iter.next()?;
+        let end = iter.next()?;
+        Some(Range { start, end })
     }
 
-    count
-}
-
-fn part2(input: &str) -> u64 {
-    let mut count = 0u64;
-
-    for line in input.lines() {
-        let mut iter = line
-            .split(',')
-            .map(to_pair)
-            .map(|(start, end)| HashSet::<u64>::from_iter(start..=end));
-        let first = iter.next().unwrap();
-        let second = iter.next().unwrap();
-        if first.intersection(&second).count() > 0 {
-            count += 1;
-        }
+    fn contains(&self, Range { start, end }: &Range) -> bool {
+        *start >= self.start && *end <= self.end
     }
 
-    count
+    fn intersects(&self, other: &Range) -> bool {
+        let first = HashSet::<u64>::from_iter(self.start..=self.end);
+        let second = HashSet::<u64>::from_iter(other.start..=other.end);
+        first.intersection(&second).count() > 0
+    }
+}
+
+fn solve<F>(input: &str, pred: F) -> usize
+where
+    F: Fn(&Range, &Range) -> bool,
+{
+    input
+        .lines()
+        .filter(|line| {
+            let mut iter = line.split(',').filter_map(Range::from_str);
+            match (iter.next(), iter.next()) {
+                (Some(first), Some(second)) => pred(&first, &second),
+                _ => false,
+            }
+        })
+        .count()
 }
 
 pub fn day4(input: &str) -> (String, String) {
-    (part1(input).to_string(), part2(input).to_string())
+    let part1 = solve(input, |first, second| {
+        first.contains(second) || second.contains(first)
+    });
+    let part2 = solve(input, |first, second| first.intersects(second));
+    (part1.to_string(), part2.to_string())
 }
